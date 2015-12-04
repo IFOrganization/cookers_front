@@ -21,7 +21,9 @@ angular.module('cookers.controllers')
         'userinfoService',
         '$localStorage',
         'socket',
-        function ($scope, $rootScope, signService, $ionicLoading, $timeout, userinfoService, $localStorage, socket) {
+        '$cordovaPush',
+        'cookers_gcm_sender_id',
+        function ($scope, $rootScope, signService, $ionicLoading, $timeout, userinfoService, $localStorage, socket, $cordovaPush, cookers_gcm_sender_id) {
 
             /**
              *
@@ -55,6 +57,7 @@ angular.module('cookers.controllers')
                         template: '<ion-spinner icon="lines" class="spinner-energized"></ion-spinner>'
 
                     });
+
                     signService.signinhttpRequest($scope.signin).then(function (sign_response_data) {
                         if (sign_response_data.sign_success == true) {
                             //로그인 성공
@@ -85,6 +88,8 @@ angular.module('cookers.controllers')
                                 $localStorage.current_sign = true;
                                 $localStorage.id = sign_response_data.cooker_profile._id;
                                 $localStorage.cooker_photo = sign_response_data.cooker_profile.cooker_photo;
+                                $localStorage.dev_token = sign_response_data.cooker_profile.dev_token;
+
 
                                 $rootScope.$broadcast("getprofileComplete");
 
@@ -319,6 +324,29 @@ angular.module('cookers.controllers')
                         , duration: 2000
                     });
                 } else {
+
+                    var push_config = {};
+                    if(ionic.Platform.isAndroid()){
+                        // Android Device Token Setting.
+                        // google Project Number.
+                        push_config = {
+                            senderId : cookers_gcm_sender_id
+                        };
+                    }else{
+                        // Ios Device Token Setting.
+                        push_config = {
+                            badge: true,
+                            sound: true,
+                            alert: true
+                        }
+                    }
+
+                    $cordovaPush.register(push_config).then(function(deviceToken) {
+                        console.log("deviceToken: " + deviceToken);
+                        $scope.signup.dev_token = deviceToken;
+                    }, function(err) {
+                        console.log("deviceToken Regist Fail.");
+                    });
 
                     signService.signupHttpRequest($scope.signup).then(function (sign_success_status) {
                         if (sign_success_status === true) {

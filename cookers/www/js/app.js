@@ -28,8 +28,8 @@ angular.module('cookers', [
         '$cordovaPush',
         '$ionicLoading',
         'socket',
-        function ($ionicPlatform, $localStorage, userinfoService, cookerService, $rootScope, $cordovaPush, $ionicLoading, socket) {
-
+        'cookers_gcm_sender_id',
+        function ($ionicPlatform, $localStorage, userinfoService, cookerService, $rootScope, $cordovaPush, $ionicLoading, socket, cookers_gcm_sender_id) {
             $ionicPlatform.offHardwareBackButton(function(){
 
             });
@@ -54,7 +54,8 @@ angular.module('cookers', [
                     current_sign: false,
                     nick_name: '',
                     id: '',
-                    cooker_photo : ''
+                    cooker_photo : '',
+                    dev_token : ''
                 });
             } else {
                 socket.emit('add user', $localStorage.id);
@@ -66,14 +67,34 @@ angular.module('cookers', [
                 // 이미 존재할때
                 cookerService.getcookerProfileHttpRequest($localStorage.id).then(function(profile){
                     $ionicLoading.hide();
+                    console.log(profile)
                     userinfoService.setuserInfo(profile);
                     $rootScope.$broadcast("getprofileComplete");
                 })
 
             }
-            if(window.StatusBar) {
-                StatusBar.styleDefault();
-            }
+            /**
+             * Notification Recived.
+             */
+            $rootScope.$on('$cordovaPush:notificationReceived', function(event, notification) {
+                if (notification.alert) {
+                    navigator.notification.alert(notification.alert);
+                }
+
+                if (notification.sound) {
+                    var snd = new Media(event.sound);
+                    snd.play();
+                }
+
+                if (notification.badge) {
+                    $cordovaPush.setBadgeNumber(notification.badge).then(function(result) {
+                        // Success!
+                    }, function(err) {
+                        // An error occurred. Show a message to the user
+                    });
+                }
+            });
+
     }])
     .config(function ($stateProvider, $urlRouterProvider, $ionicConfigProvider, jwtInterceptorProvider, $httpProvider) {
         $ionicConfigProvider.tabs.position('bottom');
