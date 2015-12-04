@@ -1,4 +1,38 @@
+/*
+    search style
+*/
+
 .button.button-clear.button-assertive.curr_active{
     border-bottom: 5px solid #EF473A;
+}
 
+.search_headerbar {
+    padding-left:0px;
+    padding-right:0px;
+}
+
+.search_content_div{
+    top:132px;
+}
+
+.tag_item{
+    font-size:15px;
+    font-weight: bold;
+    color:slategrey !important;
+}
+
+.search_cookers_nickname {
+    font-size:15px !important;
+    font-weight: bold !important;
+    color:slategrey !important;
+}
+
+.search_cookers_statecomment{
+    font-size:12px;
+    padding-top:5px;
+}
+
+.searchresult_tag_header{
+    font-weight: bold !important;
+    color:slategrey !important;
 }

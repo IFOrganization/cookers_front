@@ -1,15 +1,14 @@
-<ion-popover-view class="fit" style="width:85%; margin-left: auto;">
+<ion-popover-view class="fit popover_view_div">
     <ion-content scroll="false">
         <ion-list ng-show="userlist_show">
             <a class="item item-avatar" ng-repeat="cooker in cooker_list" ng-click="choosecookertag(cooker.nick_name, 'cooker')">
                 <img src="img/nick.jpg">
-                <h2 style="font-size:15px; font-weight: bold; color:slategrey">{{cooker.nick_name}}</h2>
-                <h4 style="font-size:12px; padding-top:5px;">{{cooker.state_comment}}</h4>
+                <h2 class="popover_item_nickname">{{cooker.nick_name}}</h2>
+                <h4 class="popover_item_comment">{{cooker.state_comment}}</h4>
             </a>
         </ion-list>
         <ion-list ng-show="taglist_show">
-            <a class="item" ng-repeat="tag in tag_list" ng-click="choosecookertag(tag.tag_name, 'tag')"
-               style="font-size:15px; font-weight: bold; color:slategrey">
+            <a class="item taglist_item" ng-repeat="tag in tag_list" ng-click="choosecookertag(tag.tag_name, 'tag')">
                 #{{tag.tag_name}}
                 <span class="item-note badge badge-assertive">{{tag.count}}</span>
             </a>
