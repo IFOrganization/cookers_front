@@ -1,0 +1,47 @@
+<ion-view title="Step. {{index}}" >
+    <ion-nav-buttons side="left">
+        <button class="button button-small ion-chevron-left button-clear" ng-click="clickBackBtn()">
+        </button>
+    </ion-nav-buttons>
+    <ion-nav-buttons side="right">
+        <button class="button button-small button-clear" ng-click="stepInputComplete()">
+            완료
+        </button>
+    </ion-nav-buttons>
+    <ion-content padding="flase">
+        <ion-list>
+            <ion-item class="item">
+                <div class="row">
+                    <canvas id="drawImage" style="width: 70%; margin: 0 auto;"/></div>
+                    <!--<img class="col" src="{{step.photo.path}}" style="width:80%;"/>-->
+                </div>
+                <div class="row" >
+                    <div class="col" >
+                        <button class="button button-full icon ion-image button-outline button-assertive"
+                            ng-click="getAlbum()"></button>
+                    </div>
+                    <div class="col">
+                        <button class="button button-full icon ion-ios-camera button-outline button-assertive"
+                            ng-click="getCamera()"></button>
+                    </div>
+                </div>
+            </ion-item>
+            <ion-item class="item item-stacked-label">
+                <div class="row">
+                    <div class="col-50" style="text-align: left">
+                        <span class="input-label" style="color:#e47865;">스텝 설명</span>
+                    </div>
+                    <div class="col-50" style="text-align: right">
+                        <h3>{{step.content.length}}/100</h3>
+                    </div>
+                </div>
+
+                <ion-item class="item-input">
+                    <textarea placeholder="스텝 설명" style="height: 60px; width:100%;"
+                              ng-model="step.content" ng-maxlength="100" ng-focus="ionic.DomUtil.blurAll();">
+                    </textarea>
+                </ion-item>
+            </ion-item>
+        </ion-list>
+    </ion-content>
+</ion-view>

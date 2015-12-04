@@ -1,0 +1,59 @@
+<ion-view title="Cookers">
+    <ion-content>
+        <!--ion-refresher start-->
+        <ion-refresher
+            pulling-text="당기면 새로운 쿡!"
+            pulling-icon="ionicons ion-ios-paw"
+            spinner="android"
+            on-refresh="refreshcookList()">
+        </ion-refresher>
+        <!--ion-refresher end-->
+
+        <!--repeart part start-->
+        <div class="list card" ng-repeat="cook in cook_list  | limitTo : cook_count | orderBy:'date':true"
+                collection-item-width="100%">
+            <a class="item item-avatar avatar_div" href="#/tab/user/{{cook.w_cooker._id}}">
+                <!--<img src="img/unanimous.png" ng-src={{cook.w_cooker.cooker_photo}}>-->
+                <img src="img/nick.jpg">
+                <!--<div class="row home_user_parent_div" style="padding-top:0px;">-->
+                <div class="row home_user_parent_div">
+                    <!--<div class="col home_user_nickname_div" style="font-weight: bold; padding-top:0px; font-size:15px;">-->
+                    <div class="col home_user_nickname_div">
+                        {{cook.w_cooker.nick_name}}
+                    </div>
+                    <!--<div class="col col-75 home_user_time_div" style="text-align:right; padding-top:0px; font-size:12px; color:slategray">-->
+                    <div class="col col-75 home_user_time_div">
+                        <time-directive time-data="cook.date"></time-directive>
+                    </div>
+                </div>
+            </a>
+
+            <div class="item item-thumbnail-left" ng-click="openshowrecipeModal(cook._id)">
+                <img ng-src={{cook.complete_photo}}>
+                <!--<img src="img/recipe_testimg.jpg">-->
+                <h2>{{cook.title}}</h2>
+
+                <!--<div class="home_desc_div" style="white-space:pre-line; color:#9B9EA3; font-size:12px;">-->
+                <div class="home_desc_div">{{cook.desc}}</div>
+
+                <!--<div class="row home_btngroup" style="padding:0px; text-align: center; color:#9B9EA3">-->
+                <div class="row home_btngroup">
+                    <div class="col home_btngroup_btn"><i class="ionicons ion-ios-heart"></i>&nbsp;&nbsp;&nbsp;{{cook.yummy.cookers.length}}</div>
+                    <div class="col home_btngroup_btn"><i class="ionicons ion-chatbox-working"></i>&nbsp;&nbsp;&nbsp;{{cook.reply.cookers.length}}</div>
+                    <div class="col home_btngroup_btn"><i class="ionicons ion-ios-glasses-outline"></i></i>&nbsp;&nbsp;&nbsp;{{cook.hits}}</div>
+                    <!--<div class="col home_btngroup_btn" style="padding-bottom:0px;">-->
+                </div>
+            </div>
+        </div>
+        <!--repeart part end-->
+
+        <!--ion-infinite-scroll start-->
+        <ion-infinite-scroll
+            ng-if="moreDataCanBeLoaded"
+            on-infinite="loadmorecookList()"
+            spinner="android"
+            distance="1%">
+        </ion-infinite-scroll>
+        <!--ion-infinite-scroll end-->
+    </ion-content>
+</ion-view>

@@ -1,0 +1,57 @@
+.avatar_div{
+    min-height: 60px;
+}
+
+.home_user_parent_div{
+    padding-top:0px;
+}
+
+.home_user_nickname_div{
+    font-weight: bold;
+    padding-top:0px;
+    font-size:15px;
+}
+
+.home_user_time_div{
+    text-align:right;
+    padding-top:0px;
+    font-size:12px;
+    color:slategray
+}
+
+.home_desc_div{
+    white-space:pre-line;
+    color:#9B9EA3;
+    font-size:12px;
+}
+
+.home_btngroup {
+    padding:0px;
+    text-align: center;
+    color:#9B9EA3
+}
+
+.home_btngroup_btn{
+    padding-bottom:0px;
+}
+
+.avatar_img {
+    height:30px !important;
+    width:30px !important;
+}
+
+.cookdetail_btn > h2, .cookdetail_btn > h3 {
+    padding-bottom: 5px;
+}
+
+.bar.bar-assertive{
+    /*background-color: #f95f5f;
+    border-color:#f95f5f;*/
+    /*background-color:#e67e22;
+    border-color:#e67e22;*/
+}
+
+.item.activated {
+    border-color: transparent !important;
+    background-color : transparent !important;
+}

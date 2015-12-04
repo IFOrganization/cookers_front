@@ -1,0 +1,51 @@
+/* summary tag */
+.button-round{
+    border-radius: 13px;
+}
+
+/* gallery step & button*/
+.step{
+    background-position: center;
+    background-size: 100%;
+    height:100px;
+    padding: 5px;
+    background-repeat: no-repeat;
+}
+
+.plus-button{
+    height: 100px;
+    width:100%;
+}
+
+.row-0{
+    padding:0px;
+}
+
+.present-icon{
+    text-align: left;
+    font-size: 2.5em;
+    color:#A52A2A;
+}
+
+.delete-icon{
+    text-align: right;
+    font-size: 1.5em;
+    color:#A52A2A;
+}
+
+/* detail */
+
+.col-canvas{
+    margin: auto;
+    /*width:60%; !important;*/
+
+}
+
+/*notice*/
+
+.item-checkbox-right .checkbox-icon {
+    float: right;
+}
+
+
+

@@ -1,0 +1,26 @@
+<ion-view title="notice">
+    <ion-content padding="false">
+        <ion-list>
+            <div class="item" style="padding : 10px;" ng-repeat="notice in notices">
+                <div class="row">
+                    <div class="col-10">
+                        <img class="left-circle-img"
+                             src="img/unanimous.png">
+
+                    </div>
+                    <div class="col-75 center-col">
+                        <p style="word-wrap:break-word; white-space: normal; max-height:80px; overflow: hidden; padding-top: 1%;">
+                            {{notice.content}}
+                        </p>
+                    </div>
+                    <div class="col-10">
+                        <button class="button button-clear button-energized"
+                                ng-click="checkBtnClick(notice, $index)">
+                            <i class="icon ion-android-exit"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </ion-list>
+    </ion-content>
+</ion-view>

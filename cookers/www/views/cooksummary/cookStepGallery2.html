@@ -1,0 +1,81 @@
+<ion-view title="stepgallery!" cache-view="false">
+
+    <ion-nav-buttons side="left">
+        <button class="button button-small button-clear" ng-if="cook.summary.length > 2"
+                ng-click="cookSummaryModify()">
+            {{modifyCondition ? '편집완료' : '편집'}}
+        </button>
+    </ion-nav-buttons>
+
+    <ion-nav-buttons side="right">
+        <button class="button button-small button-clear" ng-click="cookSumarryComplete()">
+            완료
+        </button>
+    </ion-nav-buttons>
+
+    <ion-content padding="true">
+        <div class="row" ng-repeat ='step in cook.summary' ng-if ='$index % 3 == 0'>
+
+            <div id="ani{{$index}}" class="col col-33" ng-if="$index < cook.summary.length">
+                <div class="step" style="background-image: url({{cook.summary[$index].photo}});"
+                     ng-if="$index+1 != cook.summary.length" ng-click="selectStep($index)">
+                    <div class="row row-0">
+                        <div class="col-50 present-icon">
+                            <i class="icon ion-bookmark"
+                               ng-if="$index !=0 && $index == cook.summary.length-2 "></i>
+                        </div>
+                        <div class="col-50 delete-icon"
+                             ng-if="modifyCondition && $index !=0"
+                             ng-click="deleteStep($index);">
+                            <i class="icon ion-close-circled"></i>
+                        </div>
+                    </div>
+                </div>
+                <button class="button button-assertive icon ion-plus-round plus-button"
+                        ng-if="$index == cook.summary.length-1 && !plus_button_condition"
+                        ng-click="addCookSummary()"></button>
+            </div>
+
+            <div id="ani{{$index+1}}" class="col col-33 " ng-if="$index+1 < cook.summary.length">
+                <div class="step " style="background-image: url({{cook.summary[$index+1].photo}});"
+                     ng-if="$index+2 != cook.summary.length" ng-click="selectStep($index+1)">
+
+                    <div class="row row-0">
+                        <div class="col-50 present-icon">
+                            <i class="icon ion-bookmark"
+                               ng-if="$index+3 == cook.summary.length"></i>
+                        </div>
+                        <div class="col-50 delete-icon">
+                            <i class="icon ion-close-circled"
+                               ng-if="modifyCondition"
+                               ng-click="deleteStep($index+1);"></i>
+                        </div>
+                    </div>
+                </div>
+                <button class="button button-assertive icon ion-plus-round plus-button"
+                        ng-if="$index+2 == cook.summary.length"
+                        ng-click="addCookSummary()"></button>
+            </div>
+
+            <div id="ani{{$index+2}}" class="col col-33" ng-if="$index+2 < cook.summary.length">
+                <div class="step " style="background-image: url({{cook.summary[$index+2].photo}});"
+                     ng-if="$index+3 != cook.summary.length" ng-click="selectStep($index+2)">
+                    <div class="row row-0">
+                        <div class="col-50 present-icon">
+                            <i class="icon ion-bookmark"
+                               ng-if="$index+4 == cook.summary.length"></i>
+                        </div>
+                        <div class="col-50 delete-icon">
+                            <i class="icon ion-close-circled"
+                               ng-if="modifyCondition"
+                               ng-click="deleteStep($index+2);"></i>
+                        </div>
+                    </div>
+                </div>
+                <button class="button button-assertive icon ion-plus-round plus-button"
+                        ng-if="$index+3 == cook.summary.length && !plus_button_condition"
+                        ng-click="addCookSummary()"></button>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>

@@ -1,0 +1,271 @@
+<ion-view title="Cookers">
+    <ion-nav-buttons side="left">
+        <button class="button button-small button-clear" ng-click="back_view_go();">
+            <i style="color:white;" class="icon ion-arrow-left-b placeholder-icon"></i>
+        </button>
+    </ion-nav-buttons>
+    <!--<div class="card">-->
+    <ion-content>
+        <div class="card">
+            <div class="row">
+                <div class="col-33">
+                    <div class="item item-image">
+                        <img src="img/chef31.png" ng-click="profile_img_zoom()">
+                        <!--<img ng-src={{imgdata}} width="100%" height="100%" border="1">-->
+                    </div>
+                </div>
+                <div class="col-67">
+                    <div style="margin-left:10px;">
+                        <div class="row" style="padding:3px;!important;">
+                            <div class="col" style="text-align:center;" ng-click="followEvent();">
+                                <h5>{{!checkuserinfo_intag ? cooker_profile.following.length : '-'}}</h5>
+                                <h5>팔로잉</h5>
+                            </div>
+                            <div class="col" style="text-align:center;" ng-click="followerEvent();">
+                                <h5>{{!checkuserinfo_intag ? cooker_profile.followers.length : '-'}}</h5>
+                                <h5>팔로워</h5>
+                            </div>
+                            <div class="col" style="text-align:center;">
+                                <h5>{{!checkuserinfo_intag ? cooker_profile.my_cook.length : '-'}}</h5>
+                                <h5>게시글수</h5>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <button class="button button-block button-outline button-small button-assertive"
+                                    ng-click="profileBtnEvent();" ng-class="follow_status_class"
+                                    style="margin-top:0px;!important;margin-bottom:0px;">
+                                {{profile_btn}}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div style="padding-left:15px;">
+                <h5>{{cooker_profile.nick_name}}</h5>
+                <h6 style="color:dimgray;">{{cooker_state_comment}}</h6>
+            </div>
+        </div>
+
+        <!--<div ng-if="cooker_profile.my_cook.length == 0" class="card">
+            <div style="text-align:center;">
+                <img src="img/nomycook.png" style="width:50%;height:50%">
+            </div>
+        </div>-->
+
+        <div class="card" ng-show="!checkuserinfo_intag">
+            <div class="button-bar">
+                <a class="button button-clear button-assertive"
+                   ng-class="{'usercook_active': isActive('mine')}" ng-click="setActive('mine');">등록한 쿡</a>
+                <a class="button button-clear button-assertive"
+                   ng-class="{'usercook_active': isActive('zimmy')}" ng-click="setActive('zimmy');">찜한 쿡</a>
+            </div>
+
+            <!--mycook card part-->
+            <div class="card" style="margin:0px;" ng-if="active == 'mine'">
+                <div ng-if="cooker_profile.my_cook.length == 0"
+                     style="text-align:center; height:80px; margin:80px auto; white-space:pre-line; color:#9B9EA3;">
+                    <p>작성한 쿡이 없어요!! 쿡을 만들어 주세요~~</p>
+                </div>
+
+                <a class="item item-thumbnail-left cookdetail_btn" ng-repeat="mycook in cooker_mycook | limitTo : cooker_mycook_count"
+                   ng-click="openshowrecipeModal(mycook._id)">
+                    <img ng-src={{mycook.complete_photo}}>
+                    <!--<img src="img/recipe_testimg.jpg">-->
+                    <div class="row">
+                        <div class="col-90">
+                            <h2>{{mycook.title}}</h2>
+                            <div style="white-space:pre-line; color:#9B9EA3; font-size:12px;">{{mycook.desc}}</div>
+                        </div>
+                        <div class="col-10" style="padding-top:5px;" ng-show="check_myuserinfo_intag">
+                            <i style="color:black;font-size: 20px;" class="icon ion-wand placeholder-icon" ng-click="edit(mycook)"></i>
+                        </div>
+                    </div>
+                    <!--<div class="row" style="margin:0px; padding:0px; text-align: center; color:#9B9EA3">
+                        <div class="col" style="padding-bottom:0px;"><i class="ionicons ion-android-restaurant"></i>&nbsp;&nbsp;&nbsp;{{mycook.yummy.cooks.length}}</div>
+                        <div class="col" style="padding-bottom:0px;"><i class="ionicons ion-chatbox-working"></i>&nbsp;&nbsp;&nbsp;{{mycook.reply.cookers.length}}</div>
+                        <div class="col" style="padding-bottom:0px;"><i class="ionicons ion-ios-glasses"></i>&nbsp;&nbsp;&nbsp;{{mycook.hits}}</div>
+                    </div>-->
+                </a>
+                <ion-infinite-scroll
+                    on-infinite="loadmoreCookEvent()"
+                    spinner="bubbles"
+                    distance="1%">
+                </ion-infinite-scroll>
+            </div>
+
+
+            <!--zimmy card part-->
+            <div class="card" style="margin:0px;" ng-if="active == 'zimmy'">
+                <div ng-if="cooker_profile.zimmys.length == 0"
+                     style="text-align:center; width:70%; height:80px; margin:80px auto; white-space:pre-line; color:#9B9EA3;">
+                    <p>찜한 쿡이 없네요 ㅠ 마음에 드는 쿡을 찜해 보아요!!</p>
+                </div>
+
+                <a class="item item-thumbnail-left cookdetail_btn" ng-repeat="zimmy in cooker_zimmy | limitTo : cooker_zimmy_count"
+                   ng-click="openshowrecipeModal(zimmy._id)">
+                    <img ng-src={{zimmy.complete_photo}}>
+                    <!--<img src="img/recipe_testimg.jpg">-->
+                    <h2>{{zimmy.title}}</h2>
+                    <h4>작성자 : {{zimmy.w_cooker.nick_name}}</h4>
+                    <div style="white-space:pre-line; color:#9B9EA3; font-size:12px;">{{zimmy.desc}}</div>
+                    <!--<div class="row" style="margin:0px; padding:0px; text-align: center; color:#9B9EA3">
+                        <div class="col" style="padding-bottom:0px;"><i class="ionicons ion-android-restaurant"></i>&nbsp;&nbsp;&nbsp;{{cook.yummy.cooks.length}}</div>
+                        <div class="col" style="padding-bottom:0px;"><i class="ionicons ion-chatbox-working"></i>&nbsp;&nbsp;&nbsp;{{cook.reply.cookers.length}}</div>
+                        <div class="col" style="padding-bottom:0px;"><i class="ionicons ion-ios-glasses"></i>&nbsp;&nbsp;&nbsp;{{cook.hits}}</div>
+                    </div>-->
+                </a>
+                <ion-infinite-scroll
+                    on-infinite="loadmoreCookEvent()"
+                    spinner="bubbles"
+                    distance="1%">
+                </ion-infinite-scroll>
+            </div>
+        </div>
+
+
+
+    </ion-content>
+    <!--</div>-->
+</ion-view>
+
+
+
+
+<!--
+<ion-view title="Cookers">
+
+    <ion-nav-buttons side="left">
+        <button class="button button-small button-clear" ng-click="back_view_go();">
+
+            <i style="color:white;" class="icon ion-arrow-left-b placeholder-icon"></i>
+
+        </button>
+    </ion-nav-buttons>
+
+    <ion-content padding="true">
+
+        <div class="card" style="margin-top:2%;!important;margin-bottom:1%;!important;">
+            <div class="row" style="padding:3px;!important;">
+
+                <div class="col-33">
+                    <div class="item item-image">
+                        <img ng-src={{imgdata}} width="100%" height="100%" border="1">
+
+                    </div>
+                </div>
+                <div class="col-67">
+                    <div style="margin-left:10px;">
+
+
+                        <h5>{{cooker_profile.nick_name}}</h5>
+                        <h5 style="color:dimgray;">{{cooker_state_comment}}</h5>
+
+                        <div class="row" style="padding:3px;!important;">
+
+
+                            <div class="col" style="text-align:center;" ng-click="followEvent();">
+                                <h5>{{cooker_profile.following.length}}</h5>
+                                <h5>팔로잉</h5>
+                            </div>
+                            <div class="col" style="text-align:center;" ng-click="followerEvent();">
+                                <h5>{{cooker_profile.followers.length}}</h5>
+                                <h5>팔로워</h5>
+                            </div>
+                            <div class="col" style="text-align:center;">
+                                <h5>{{cooker_profile.my_cook.length}}</h5>
+                                <h5>게시글수</h5>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+            <div>
+                <button class="button button-block button-outline button-small button-assertive"
+                        ng-click="profileBtnEvent();"
+                        style="margin-top:0px;!important;margin-bottom:0px;">
+                    {{profile_btn}}
+                </button>
+            </div>
+        </div>
+
+        <div class="row" style="padding-top:2%;!important;padding-bottom:2%;!important;">
+            <div class="col">
+                <button class="button button-block button-small button-assertive" ng-click="mycookEvent();">
+                    내가쓴 글
+                </button>
+            </div>
+            <div class="col">
+                <button class="button button-block button-small button-assertive" ng-click="zimmyEvent();">
+                    찜한 글
+                </button>
+            </div>
+        </div>
+
+
+        &lt;!&ndash; 나중에 zimmy mycook과 연결해서  ng-repeat &ndash;&gt;
+
+        <ion-scroll direction="y" style="margin:auto;!important;height:250px!important;width: 90% !important;"
+                    ng-if="mycook_zimmy == 'mycook'">
+
+            <div ng-if="cooker_profile.my_cook.length == 0" class="card">
+                <div style="text-align:center;">
+                    <img src="img/nomycook.png" style="width:50%;height:50%">
+                </div>
+            </div>
+
+            <div class="card" ng-repeat="mycook in cooker_mycook | limitTo : cooker_mycook_count"
+                 style="height:80px;!important;margin-top:0px;!important;">
+                <div class="row">
+                    <div class="col-90">
+                        <a class="item item-thumbnail-left" href="#" ng-click="openshowrecipeModal(mycook._id)">
+                            <img ng-src="{{mycook.complete_photo}}" style="height:inherit;!important;">
+
+                            <h2>{{mycook.title}}</h2><br>
+
+                            <p>{{mycook.desc}}</p>
+                        </a>
+                    </div>
+                    <div class="col-10" style="padding-top:5px;">
+                        <i style="color:black;font-size: 20px;" class="icon ion-wand placeholder-icon" ng-click="edit(mycook)"></i>
+                    </div>
+                </div>
+            </div>
+            <ion-infinite-scroll
+                    on-infinite="loadmoreCookEvent()"
+                    spinner="bubbles"
+                    distance="1%">
+            </ion-infinite-scroll>
+        </ion-scroll>
+
+
+        <ion-scroll direction="y" style="margin:auto;!important;height:250px!important;width: 90% !important;"
+                    ng-if="mycook_zimmy == 'zimmy'">
+
+            <div ng-if="cooker_profile.zimmys.length == 0" class="card">
+                <div style="text-align:center;">
+                    <img src="img/nozimmy.png" style="width:50%;height:50%">
+                </div>
+            </div>
+
+            <div class="card" ng-repeat="zimmy in cooker_zimmy | limitTo : cooker_zimmy_count"
+                 style="height:80px;!important;margin-top:0px;!important;">
+
+                <a class="item item-thumbnail-left" href="#" ng-click="openshowrecipeModal(zimmy._id);">
+                    <img ng-src="{{zimmy.complete_photo}}" style="height:inherit;!important;">
+
+                    <h2>{{zimmy.title}}</h2>
+                    <h4>작성자 : {{zimmy.w_cooker.nick_name}}</h4>
+                    <p>{{zimmy.desc}}</p>
+                </a>
+            </div>
+            <ion-infinite-scroll
+                    on-infinite="loadmoreCookEvent()"
+                    spinner="bubbles"
+                    distance="1%">
+            </ion-infinite-scroll>
+        </ion-scroll>
+</ion-content>
+</ion-view>
+-->

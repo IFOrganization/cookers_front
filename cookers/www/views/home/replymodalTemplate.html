@@ -1,0 +1,52 @@
+<div ng-controller="replymodalCtrl" class="modal image-modal transparent">
+    <div class="card showcookCard">
+        <ion-header-bar class="bar-assertive">
+            <button class="button icon-left ion-ios-arrow-thin-left button-clear" ng-click="closeModal()"></button>
+            <h1 class="title">{{cook_model.title}}</h1>
+        </ion-header-bar>
+
+        <div ng-show="comments_check" style="position:absolute; top:50%; width:100%; height:240px; margin-top:-120px; text-align: center; color:#595959;">
+            <i class="ionicons ion-chatbox-working" style="font-size: 128px;"></i><br>
+            <h5>등록된 댓글이 없어요
+                <br>
+                서로의 맛있는 비법을 공유해 보아요~!
+            </h5>
+        </div>
+
+        <ion-content delegate-handle="mainScroll">
+            <ion-list>
+                <ion-item ng-repeat="item in cookers" class="item item-avatar" style="border-bottom:1px;">
+                    <img src="img/unanimous.png" style="border-radius:0%;">
+                    <div class="row" style="padding-top:0px;">
+                        <div class="col" style="font-weight: bold; padding-top:0px; font-size:17px;">
+                            {{item.cooker_id.nick_name}}
+                        </div>
+                        <div class="col" style="padding-top:0px; font-size:12px; color:slategray">
+                            <time-directive time-data="item.date"></time-directive>
+                        </div>
+                        <div style="font-size:20px; padding-left:10px; padding-right:10px;" ng-click="openmoreinfoPopover($event, item.cooker_id.nick_name, item._id)">
+                            <span>
+                                <i class="ionicons ion-android-more-vertical"></i>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="row" style="height:50px;">
+                        <div class="col" style="font-size: 15px;">
+                            <p style="white-space:normal;" dynamic="compilengbindHtml(item.comment)"></p>
+                        </div>
+                    </div>
+                </ion-item>
+            </ion-list>
+        </ion-content>
+
+        <ion-footer-bar align-title="left" class="item-input-inset">
+            <label class="item-input-wrapper">
+                <i class="ionicons ion-chatbubble-working" style="color:#B9B9B9"></i>
+                <input type="text" id="reply_input" ng-keyup="tagtext_change($event)" ng-model="write_comment" placeholder="댓글 남기기">
+            </label>
+            <button ng-click="apply_comment()" class="button button-outline button-assertive">
+                등록
+            </button>
+        </ion-footer-bar>
+    </div>
+</div>

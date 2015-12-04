@@ -1,0 +1,18 @@
+<ion-popover-view class="fit" style="width:85%; margin-left: auto;">
+    <ion-content scroll="false">
+        <ion-list ng-show="userlist_show">
+            <a class="item item-avatar" ng-repeat="cooker in cooker_list" ng-click="choosecookertag(cooker.nick_name, 'cooker')">
+                <img src="img/nick.jpg">
+                <h2 style="font-size:15px; font-weight: bold; color:slategrey">{{cooker.nick_name}}</h2>
+                <h4 style="font-size:12px; padding-top:5px;">{{cooker.state_comment}}</h4>
+            </a>
+        </ion-list>
+        <ion-list ng-show="taglist_show">
+            <a class="item" ng-repeat="tag in tag_list" ng-click="choosecookertag(tag.tag_name, 'tag')"
+               style="font-size:15px; font-weight: bold; color:slategrey">
+                #{{tag.tag_name}}
+                <span class="item-note badge badge-assertive">{{tag.count}}</span>
+            </a>
+        </ion-list>
+    </ion-content>
+</ion-popover-view>

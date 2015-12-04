@@ -1,0 +1,122 @@
+<ion-view title="Cookers">
+    <ion-header-bar class="bar bar-subheader bar-light" style="padding-left:0px; padding-right:0px;">
+        <div class="button-bar">
+            <a class="button button-clear button-assertive"
+               ng-class="{'curr_active': isActive('tag')}" ng-click="setActive('tag')">tag</a>
+            <a class="button button-clear button-assertive"
+               ng-class="{'curr_active': isActive('cook')}" ng-click="setActive('cook')">cook</a>
+            <a class="button button-clear button-assertive"
+               ng-class="{'curr_active': isActive('cookers')}" ng-click="setActive('cookers')">cookers</a>
+        </div>
+        <div ng-show="search_input" class="item item-input-inset">
+            <label class="item-input-wrapper">
+                <i class="icon ion-search placeholder-icon"></i>
+                <input ng-change="search()" ng-model="search_text" type="text" placeholder="{{search_type}}">
+            </label>
+        </div>
+        <div ng-show="recommend_show" class="item item-body">
+            오늘의 추천 메뉴
+        </div>
+    </ion-header-bar>
+
+    <ion-content padding="false" style="top:132px;">
+        <ion-list ng-show="recommend_show">
+            <!--<div class="row" style="padding:0px;">
+                <div class="col-50">
+                    <div class="item item-body" style="padding:0px;">
+                        <img class="full-image" src="img/food1.jpg">
+                    </div>
+                </div>
+                <div class="col-50">
+                    <div class="item item-body" style="padding:0px;">
+                        <img class="full-image" src="img/food2.jpg">
+                    </div>
+                </div>
+            </div>
+            <div class="row" style="padding:0px;">
+                <div class="col-50">
+                    <div class="item item-body" style="padding:0px;">
+                        <img class="full-image" src="img/food3.jpg">
+                    </div>
+                </div>
+                <div class="col-50">
+                    <div class="item item-body" style="padding:0px;">
+                        <img class="full-image" src="img/food4.jpg">
+                    </div>
+                </div>
+            </div>
+            <div class="row" style="padding:0px;">
+                <div class="col-50">
+                    <div class="item item-body" style="padding:0px;">
+                        <img class="full-image" src="img/food5.jpg">
+                    </div>
+                </div>
+                <div class="col-50">
+                    <div class="item item-body" style="padding:0px;">
+                        <img class="full-image" src="img/food6.jpg">
+                    </div>
+                </div>
+            </div>
+            <div class="row" style="padding:0px;">
+                <div class="col-50">
+                    <div class="item item-body" style="padding:0px;">
+                        <img class="full-image" src="img/food7.jpg">
+                    </div>
+                </div>
+                <div class="col-50">
+                    <div class="item item-body" style="padding:0px;">
+                        <img class="full-image" src="img/food8.jpg">
+                    </div>
+                </div>
+            </div>-->
+        </ion-list>
+
+        <!--tag ion list-->
+        <ion-list ng-show="tag_show">
+            <a class="item" ng-repeat="tag in tag_counts | orderBy:'-count'" ng-click="gotagsearchResult(tag.tag_name)" style="font-size:15px; font-weight: bold; color:slategrey">
+                #{{tag.tag_name}}
+                <span class="item-note badge badge-assertive">{{tag.count}}</span>
+            </a>
+        </ion-list>
+
+        <!--cook ion list-->
+        <ion-list ng-show="cook_show">
+            <div class="list card" ng-repeat="cook in cook_list  | limitTo : cook_count ">
+                <a class="item item-avatar" href="#/tab/user/{{cook.w_cooker._id}}">
+                    <img src="img/unanimous.png" ng-src={{cook.w_cooker.cooker_photo}}>
+                    <div class="row" style="padding-top:0px;">
+                        <div class="col" style="font-weight: bold; padding-top:0px; font-size:15px;">
+                            {{cook.w_cooker.nick_name}}
+                        </div>
+                        <div class="col col-75" style="text-align:right; padding-top:0px; font-size:12px; color:slategray">
+                            <time-directive time-data="cook.date"></time-directive>
+                        </div>
+                    </div>
+                </a>
+
+                <a class="item item-thumbnail-left cookdetail_btn" ng-click="openshowrecipeModal(cook._id)">
+                    <img ng-src={{cook.complete_photo}}>
+                    <h2>{{cook.title}}</h2>
+
+                    <div style="white-space:pre-line; color:#9B9EA3; font-size:12px;">{{cook.desc}}</div>
+
+                    <div class="row" style="padding:0px; text-align: center; color:#9B9EA3">
+                        <div class="col" style="padding-bottom:0px;"><i class="ionicons ion-android-restaurant"></i>&nbsp;&nbsp;&nbsp;{{cook.yummy.cooks.length}}</div>
+                        <div class="col" style="padding-bottom:0px;"><i class="ionicons ion-chatbox-working"></i>&nbsp;&nbsp;&nbsp;{{cook.reply.cookers.length}}</div>
+                        <div class="col" style="padding-bottom:0px;"><i class="ionicons ion-ios-glasses"></i>&nbsp;&nbsp;&nbsp;{{cook.hits}}</div>
+                    </div>
+                </a>
+            </div>
+
+        </ion-list>
+
+        <!--cookers ion list-->
+        <ion-list ng-show="cookers_show">
+            <a class="item item-avatar" ng-repeat="cooker in cookers_list" href="#/tab/user/{{cooker._id}}">
+                <img src="img/unanimous.png" ng-src={{cooker.cooker_photo}}>
+                <h2 style="font-size:15px; font-weight: bold; color:slategrey">{{cooker.nick_name}}</h2>
+                <h4 style="font-size:12px; padding-top:5px;">{{cooker.state_comment}}</h4>
+            </a>
+        </ion-list>
+    </ion-content>
+</ion-view>

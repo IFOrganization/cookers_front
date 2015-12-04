@@ -1,0 +1,32 @@
+<!-- 팔로워 리스트 (나를 팔로우 하고 있는 사람들 리스트 - 팔로우 상태는 후에 결정) -->
+
+<ion-view title="follower list">
+
+    <ion-nav-buttons side="left">
+        <button class="button button-small button-clear" ng-click="gotoProfile();">
+
+            <i style="color:white;" class="icon ion-arrow-left-b placeholder-icon"></i>
+
+        </button>
+    </ion-nav-buttons>
+
+
+    <ion-content>
+        <ion-list can-swipe="list_swipe">
+
+            <ion-item class="item-avatar" ng-repeat="follower_list in cooker_follower_list">
+
+                <img ng-src="{{follower_list.cooker_photo == '' ? 'img/chef31.png' : follower_list.cooker_photo}}">
+                <h2 style="color:dimgray;margin-top:7px;">{{follower_list.nick_name}}</h2>
+
+                <ion-option-button class="button-calm"
+                                   ng-click="cookerInfoEvent(follower_list._id)">
+                    쿠커정보보기
+                </ion-option-button>
+
+            </ion-item>
+
+        </ion-list>
+    </ion-content>
+
+</ion-view>
