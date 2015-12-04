@@ -2,3 +2,58 @@
     color:#ffffff;
     background-color:#f95f5f;
 }
+
+.user_back_btn {
+    color:white;
+}
+
+.user_info_div{
+    margin-left:10px;
+}
+
+.user_info_parent{
+    padding:3px;!important;
+}
+
+.user_info_child{
+    text-align:center;
+}
+
+.profile_btn{
+    margin-top:0px !important;
+    margin-bottom:0px;
+}
+
+.user_info_nickcomment{
+    padding-left:15px;
+}
+
+.user_info_comment{
+    color:dimgray;
+}
+
+.inUser_Card{
+    margin:0px;
+}
+
+.inUser_Card_non{
+    text-align:center;
+    height:80px;
+    margin:80px auto;
+    white-space:pre-line;
+    color:#9B9EA3;
+}
+
+.inUser_Card_desc{
+    white-space:pre-line;
+    color:#9B9EA3;
+    font-size:12px;
+}
+
+.my_cook_edit_div{
+    padding-top:5px;
+}
+
+.my_cook_edit_icon{
+    color:black;font-size: 20px;
+}

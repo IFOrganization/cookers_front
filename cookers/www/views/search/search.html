@@ -1,5 +1,5 @@
 <ion-view title="Cookers">
-    <ion-header-bar class="bar bar-subheader bar-light" style="padding-left:0px; padding-right:0px;">
+    <ion-header-bar class="bar bar-subheader bar-light search_headerbar">
         <div class="button-bar">
             <a class="button button-clear button-assertive"
                ng-class="{'curr_active': isActive('tag')}" ng-click="setActive('tag')">tag</a>
@@ -19,7 +19,7 @@
         </div>
     </ion-header-bar>
 
-    <ion-content padding="false" style="top:132px;">
+    <ion-content padding="false" class="search_content_div">
         <ion-list ng-show="recommend_show">
             <!--<div class="row" style="padding:0px;">
                 <div class="col-50">
@@ -73,7 +73,7 @@
 
         <!--tag ion list-->
         <ion-list ng-show="tag_show">
-            <a class="item" ng-repeat="tag in tag_counts | orderBy:'-count'" ng-click="gotagsearchResult(tag.tag_name)" style="font-size:15px; font-weight: bold; color:slategrey">
+            <a class="tag_item item" ng-repeat="tag in tag_counts | orderBy:'-count'" ng-click="gotagsearchResult(tag.tag_name)">
                 #{{tag.tag_name}}
                 <span class="item-note badge badge-assertive">{{tag.count}}</span>
             </a>
@@ -84,11 +84,11 @@
             <div class="list card" ng-repeat="cook in cook_list  | limitTo : cook_count ">
                 <a class="item item-avatar" href="#/tab/user/{{cook.w_cooker._id}}">
                     <img src="img/unanimous.png" ng-src={{cook.w_cooker.cooker_photo}}>
-                    <div class="row" style="padding-top:0px;">
-                        <div class="col" style="font-weight: bold; padding-top:0px; font-size:15px;">
+                    <div class="row home_user_parent_div">
+                        <div class="col  home_user_nickname_div">
                             {{cook.w_cooker.nick_name}}
                         </div>
-                        <div class="col col-75" style="text-align:right; padding-top:0px; font-size:12px; color:slategray">
+                        <div class="col col-75 home_user_time_div">
                             <time-directive time-data="cook.date"></time-directive>
                         </div>
                     </div>
@@ -97,13 +97,11 @@
                 <a class="item item-thumbnail-left cookdetail_btn" ng-click="openshowrecipeModal(cook._id)">
                     <img ng-src={{cook.complete_photo}}>
                     <h2>{{cook.title}}</h2>
-
-                    <div style="white-space:pre-line; color:#9B9EA3; font-size:12px;">{{cook.desc}}</div>
-
-                    <div class="row" style="padding:0px; text-align: center; color:#9B9EA3">
-                        <div class="col" style="padding-bottom:0px;"><i class="ionicons ion-android-restaurant"></i>&nbsp;&nbsp;&nbsp;{{cook.yummy.cooks.length}}</div>
-                        <div class="col" style="padding-bottom:0px;"><i class="ionicons ion-chatbox-working"></i>&nbsp;&nbsp;&nbsp;{{cook.reply.cookers.length}}</div>
-                        <div class="col" style="padding-bottom:0px;"><i class="ionicons ion-ios-glasses"></i>&nbsp;&nbsp;&nbsp;{{cook.hits}}</div>
+                    <div class="home_desc_div">{{cook.desc}}</div>
+                    <div class="row home_btngroup">
+                        <div class="col home_btngroup_btn"><i class="ionicons ion-ios-heart"></i>&nbsp;&nbsp;&nbsp;{{cook.yummy.cooks.length}}</div>
+                        <div class="col home_btngroup_btn"><i class="ionicons ion-chatbox-working"></i>&nbsp;&nbsp;&nbsp;{{cook.reply.cookers.length}}</div>
+                        <div class="col home_btngroup_btn"><i class="ionicons ion-ios-glasses-outline"></i>&nbsp;&nbsp;&nbsp;{{cook.hits}}</div>
                     </div>
                 </a>
             </div>
@@ -114,8 +112,8 @@
         <ion-list ng-show="cookers_show">
             <a class="item item-avatar" ng-repeat="cooker in cookers_list" href="#/tab/user/{{cooker._id}}">
                 <img src="img/unanimous.png" ng-src={{cooker.cooker_photo}}>
-                <h2 style="font-size:15px; font-weight: bold; color:slategrey">{{cooker.nick_name}}</h2>
-                <h4 style="font-size:12px; padding-top:5px;">{{cooker.state_comment}}</h4>
+                <h2 class="search_cookers_nickname">{{cooker.nick_name}}</h2>
+                <h4 class="search_cookers_statecomment">{{cooker.state_comment}}</h4>
             </a>
         </ion-list>
     </ion-content>
