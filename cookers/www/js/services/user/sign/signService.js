@@ -40,8 +40,7 @@ angular.module('cookers.services')
                 signup_json.pw = signup_data.signup_pw;
                 signup_json.name = signup_data.signup_name;
                 signup_json.subemail = signup_data.signup_subemail;
-
-
+                signup_json.devtoken = signup_data.dev_token;
 
                 var defer = $q.defer();
                 $http({
