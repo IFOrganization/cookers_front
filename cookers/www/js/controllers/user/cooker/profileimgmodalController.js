@@ -16,5 +16,6 @@ angular.module('cookers.controllers')
             $scope.imgclose = function(){
                 $scope.$emit('profileimg_modal_close');
             }
+            // 커밋 테스트
         }
     ]);
