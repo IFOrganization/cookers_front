@@ -11,3 +11,7 @@
 .padding-10{
     padding : 10px;
 }
+
+.notice-content{
+    word-wrap:break-word; white-space: normal; max-height:80px; overflow: hidden; padding-top: 1%;
+}
