@@ -63,6 +63,10 @@ angular.module('cookers.controllers')
              */
             $scope.selectedPhotoData = $scope.step.photo;
             $scope.modal = {};
+            $scope.screen = {
+                width : window.innerWidth,
+                height : window.innerHeight-43
+            };
             $scope.modalPreBtnClick = function(){
                 console.log("modal pre");
                 $scope.modal.hide();
