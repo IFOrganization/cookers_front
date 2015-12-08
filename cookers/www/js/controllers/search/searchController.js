@@ -46,8 +46,6 @@ angular.module('cookers.controllers')
                         $scope.cookers_show = false;
 
                         searchService.searchautocompleteHttpRequest(search_param).then(function(data){
-                            console.log(data);
-                        /*    $scope.cook_list = data;*/
                             $scope.tag_counts = data;
                         });
 
@@ -60,7 +58,6 @@ angular.module('cookers.controllers')
                          * cook 제목 검색
                          */
                         searchService.searchautocompleteHttpRequest(search_param).then(function(data){
-                            console.log(data);
                             $scope.cook_list = data;
                         });
 

@@ -25,6 +25,8 @@ angular.module('cookers.controllers')
                  userinfoService, addreplyService, getreplyinitialdataService, searchService, focusService, getcookeridService,
                  tagkeywordService, deletereplyService, insertnoticeService) {
 
+            focusService('reply_input');
+
             $scope.myProfile = userinfoService.getuserInfo().cooker_profile;
             $scope.cook_model = cookmodelManage.get_cookmodel();
 

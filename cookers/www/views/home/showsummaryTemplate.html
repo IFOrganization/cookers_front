@@ -6,10 +6,10 @@
         </ion-header-bar>
 
         <ion-content delegate-handle="mainScroll">
-            <div ng-repeat="step in summary_images">
+            <div ng-repeat="step in summary_images track by $index">
                 <div class="row" ng-if="$even">
                     <div class="col col-50"
-                         ng-repeat="item in [summary_images[$index],summary_images[$index + 1]]">
+                         ng-repeat="item in [summary_images[$index],summary_images[$index + 1]] track by $index">
                         <img class="summary_img" ng-src="{{item.image}}" ng-click="gotoslide(item.num)"/>
                     </div>
                 </div>

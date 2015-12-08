@@ -30,7 +30,7 @@
                         </div>
                         <div class="tag_div">
                             <button class="button button-small button-clear button-positive tag_button"
-                                    ng-repeat="tag in current_cook.tags" ng-click="tag_clicked(tag.tag_name)">
+                                    ng-repeat="tag in current_cook.tags track by tag._id" ng-click="tag_clicked(tag.tag_name)">
                                 #{{tag.tag_name}}
                             </button>
                         </div>
@@ -38,7 +38,7 @@
                         <div class="card">
                             <div class="item item-text-wrap">
                                 쿡 재료 :
-                            <span ng-repeat="stuff in current_cook.stuffs">
+                            <span ng-repeat="stuff in current_cook.stuffs track by stuff._id">
                                 {{$index != current_cook.stuffs.length-1 ? stuff.stuff_name+"," : stuff.stuff_name}}
                             </span>
                             </div>
@@ -69,7 +69,7 @@
             </div>
         </ion-slide>
 
-        <ion-slide ng-repeat="step in current_cook.steps">
+        <ion-slide ng-repeat="step in current_cook.steps track by step._id">
             <!--steps header-->
             <div class="list card showcookCard">
                 <ion-header-bar class="bar-assertive">
@@ -96,7 +96,7 @@
 
                         <div class="tag_div">
                             <button class="button button-small button-clear button-positive tag_button"
-                                    ng-repeat="tag in current_cook.tags" ng-click="tag_clicked(tag.tag_name)">
+                                    ng-repeat="tag in current_cook.tags track by tag._id" ng-click="tag_clicked(tag.tag_name)">
                                 #{{tag.tag_name}}
                             </button>
                         </div>

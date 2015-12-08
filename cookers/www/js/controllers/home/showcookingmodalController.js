@@ -27,9 +27,10 @@ angular.module('cookers.controllers')
             $scope.current_cook={};
             $scope.cook_id = currentinfoService.get_currentcook_id();
             $scope.myProfile = userinfoService.getuserInfo().cooker_profile;
-            $scope.yummy_count=0;
             $scope.is_zimmy = false;
 
+            var check_yummy_data = {};
+            var check_zimmy_data = {};
 
             /**
              * 현재 컨트롤러는 모달의 컨트롤러이기 때문에 resolve 사용 불가능.
@@ -49,6 +50,7 @@ angular.module('cookers.controllers')
                  * $scope.yummy_flag --> 현재 로그인한 사용자가 이 cook의 yummy에 대해 활성화/비활성화 인지를 나타내는 변수
                  */
 
+                console.log(data);
                 $scope.current_cook = data[0];
                 $scope.yummy_count = $scope.current_cook.yummy.cookers.length;
                 $scope.reply_count = $scope.current_cook.reply.cookers.length
@@ -59,23 +61,25 @@ angular.module('cookers.controllers')
                  */
                 inchitService.increase_hit($scope.cook_id);
 
-                $scope.check_yummy_data = {};
-                $scope.check_yummy_data.cooker_yummy_id = $scope.myProfile.yummy;
-                $scope.check_yummy_data.cook_id = $scope.cook_id;
-
                 /**
                  * 쿡을 터치했을때 처음 yummy를 체크하는 부분
                  * 유저정보에 있는 유저 _id와 yummy의 _id가 필요
                  */
-                checkmyyummyService.checkyummyHttpRequest($scope.check_yummy_data).then(function(data){
+                check_yummy_data.cooker_yummy_id = $scope.myProfile.yummy;
+                check_yummy_data.cook_id = $scope.cook_id;
+
+                checkmyyummyService.checkyummyHttpRequest(check_yummy_data).then(function(data){
                     $scope.yummy_check = data;
                 });
 
-                $scope.check_zimmy_data = {};
-                $scope.check_zimmy_data.cook_id = $scope.cook_id;
-                $scope.check_zimmy_data.cooker_id = $scope.myProfile._id;
 
-                checkmyzimmyService.checkzimmyHttpRequest($scope.check_zimmy_data).then(function(data){
+                /**
+                 * zimmy 체크 part
+                 */
+                check_zimmy_data.cook_id = $scope.cook_id;
+                check_zimmy_data.cooker_id = $scope.myProfile._id;
+
+                checkmyzimmyService.checkzimmyHttpRequest(check_zimmy_data).then(function(data){
                     $scope.is_zimmy = data;
                 });
 
@@ -88,10 +92,10 @@ angular.module('cookers.controllers')
                 yummyData.cooker_yummy_id = $scope.myProfile.yummy;
                 yummyData.cook_id = $scope.cook_id;
                 yummyData.cooker_id = $scope.myProfile._id;
+                yummyData.check_yummy = $scope.yummy_check;
 
-                yummyService.yummydataHttpRequest(yummyData).then(function(data){
-                    $scope.yummy_count = data.cookers.length;
 
+                yummyService.yummydataHttpRequest(yummyData).then(function(){
                     /**
                      * - 위 서비스를 호출 하여 두개의 yummy document에 insert한 뒤
                      *   yummy 갯수를 가져옴.
@@ -104,26 +108,16 @@ angular.module('cookers.controllers')
                         /**
                          * yummy 활성화 상태 --> 비활성화
                          */
+
                         $scope.yummy_check = false;
-                        $ionicLoading.show({
-                            showBackdrop: false,
-                            template : '맛있어 보이지 않나요? ㅠㅠ'
-                        });
-                        $timeout(function () {
-                            $ionicLoading.hide();
-                        }, 2000);
+                        $scope.yummy_count = $scope.yummy_count*1 - 1;
                     } else {
                         /**
-                         * yummy 비활성화 상태 --> 활성화
-                         */
+                            * yummy 비활성화 상태 --> 활성화
+                        */
+
                         $scope.yummy_check = true;
-                        $ionicLoading.show({
-                            showBackdrop: false,
-                            template : '맛있겠다!!'
-                        });
-                        $timeout(function () {
-                            $ionicLoading.hide();
-                        }, 2000);
+                        $scope.yummy_count = $scope.yummy_count*1 + 1;
 
                         var notice = {};
                         notice.kind_code = "L";
@@ -134,6 +128,7 @@ angular.module('cookers.controllers')
                         insertnoticeService.noticeHttpRequest(notice);
                     }
                 });
+
             }
 
             $scope.manageZimmy = function(){

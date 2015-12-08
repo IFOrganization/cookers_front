@@ -1,5 +1,5 @@
 <ion-view title="Cookers">
-    <ion-content>
+    <ion-content overflow-scroll="true" lazy-scroll>
         <!--ion-refresher start-->
         <ion-refresher
             pulling-text="당기면 새로운 쿡!"
@@ -10,32 +10,37 @@
         <!--ion-refresher end-->
 
         <!--repeart part start-->
-        <div class="list card" ng-repeat="cook in cook_list  | limitTo : cook_count | orderBy:'date':true"
-                collection-item-width="100%">
-            <a class="item item-avatar avatar_div" href="#/tab/user/{{cook.w_cooker._id}}">
-                <!--<img src="img/unanimous.png" ng-src={{cook.w_cooker.cooker_photo}}>-->
-                <img src="img/nick.jpg">
-                <div class="row home_user_parent_div">
-                    <div class="col home_user_nickname_div">
-                        {{cook.w_cooker.nick_name}}
+        <div class="list card" ng-repeat="cook in cook_list | limitTo : cook_count | orderBy:'date':true track by cook._id ">
+        <!--<ion-item class="collection_parent" ng-repeat="cook in cook_list  | limitTo : cook_count | orderBy:'date':true">-->
+            <!--<div class="card following_card">-->
+            <!--<div class="card">-->
+                <a class="item item-avatar avatar_div" href="#/tab/user/{{cook.w_cooker._id}}">
+                    <!--<img src="img/unanimous.png" ng-src={{cook.w_cooker.cooker_photo}}>-->
+                    <img lazy-scroll-resize="true" image-lazy-src="{{cook.w_cooker.cooker_photo}}" image-lazy-distance-from-bottom-to-load="100">
+                    <div class="row home_user_parent_div">
+                        <div class="col home_user_nickname_div">
+                            {{cook.w_cooker.nick_name}}
+                        </div>
+                        <div class="col col-75 home_user_time_div">
+                            <!--<span>{{timechange(cook.date)}}</span>-->
+                            <time-directive time-data="cook.date"></time-directive>
+                        </div>
                     </div>
-                    <div class="col col-75 home_user_time_div">
-                        <time-directive time-data="cook.date"></time-directive>
-                    </div>
-                </div>
-            </a>
+                </a>
 
-            <div class="item item-thumbnail-left" ng-click="openshowrecipeModal(cook._id)">
-                <img ng-src={{cook.complete_photo}}>
-                <!--<img src="img/recipe_testimg.jpg">-->
-                <h2>{{cook.title}}</h2>
-                <div class="home_desc_div">{{cook.desc}}</div>
-                <div class="row home_btngroup">
-                    <div class="col home_btngroup_btn"><i class="ionicons ion-ios-heart"></i>&nbsp;&nbsp;&nbsp;{{cook.yummy.cookers.length}}</div>
-                    <div class="col home_btngroup_btn"><i class="ionicons ion-chatbox-working"></i>&nbsp;&nbsp;&nbsp;{{cook.reply.cookers.length}}</div>
-                    <div class="col home_btngroup_btn"><i class="ionicons ion-ios-glasses-outline"></i>&nbsp;&nbsp;&nbsp;{{cook.hits}}</div>
+                <div class="item item-thumbnail-left" ng-click="openshowrecipeModal(cook._id)">
+                    <!--<img ng-src={{cook.complete_photo}}>-->
+                    <img lazy-scroll-resize="true" image-lazy-src="{{cook.complete_photo}}" image-lazy-distance-from-bottom-to-load="100">
+                    <h2>{{cook.title}}</h2>
+                    <div class="home_desc_div">{{cook.desc}}</div>
+                    <div class="row home_btngroup">
+                        <div class="col home_btngroup_btn"><i class="ionicons ion-ios-heart"></i>&nbsp;&nbsp;&nbsp;{{cook.yummy.cookers.length}}</div>
+                        <div class="col home_btngroup_btn"><i class="ionicons ion-chatbox-working"></i>&nbsp;&nbsp;&nbsp;{{cook.reply.cookers.length}}</div>
+                        <div class="col home_btngroup_btn"><i class="ionicons ion-ios-glasses-outline"></i>&nbsp;&nbsp;&nbsp;{{cook.hits}}</div>
+                    </div>
                 </div>
-            </div>
+            <!--</div>-->
+        <!--</ion-item>-->
         </div>
         <!--repeart part end-->
 

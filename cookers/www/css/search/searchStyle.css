@@ -36,3 +36,7 @@
     font-weight: bold !important;
     color:slategrey !important;
 }
+
+.collection_scrollview{
+    height:550px;
+}
