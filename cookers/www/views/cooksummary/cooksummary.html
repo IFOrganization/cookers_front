@@ -7,38 +7,37 @@
     <ion-content class="has-header">
         <ion-list>
             <ion-item class="item item-input item-stacked-label">
-                <span class="input-label"  style="color:#e47865;">제목</span>
+                <span class="input-label assertive">제목</span>
                 <input type="text" placeholder="제목" ng-model="cook.title" maxlength="25">
             </ion-item>
             <ion-item class="item item-input item-stacked-label">
-                <span class="input-label" style="color:#e47865;">간단 설명</span>
+                <span class="input-label assertive">간단 설명</span>
                 <input type="text" placeholder="간단 설명" ng-model="cook.desc" maxlength="20">
             </ion-item>
             <ion-item>
-                <span class="label" style="color:#e47865;">요리 재료</span><br>
-                <div style="float: left;">
-                    <div style="display:inline;white-space: normal;height:34px;" ng-repeat="stuff in cook.stuffs"
+                <span class="label assertive">요리 재료</span><br>
+                <div>
+                    <div class="tag" ng-repeat="stuff in cook.stuffs"
                          ng-click="removeStuff($index)">
                         <button class="button button-small button-outline button-royal button-round">
                             {{stuff.stuff_name}}
                             <i class="icon ion-ios-close-outline"></i>
                         </button>
                     </div>
-                    <input id="input_stuff" type="text" style="white-space: normal;" placeholder="재료를 입력해주세요" ng-model="cook.inputStuff"
-                           ng-keyup="kyeUpStuff($event)"
-                           style="display: inline" >
+                    <input id="input_stuff" type="text" placeholder="재료를 입력해주세요" ng-model="input.stuff"
+                           ng-keyup="kyeUpStuff($event)">
                 </div>
             </ion-item>
             <ion-item class="item item-input item-stacked-label">
                 <div class="row">
-                    <div class="col-50 input-label" style="color:#e47865;"> 재료 수</div>
-                    <div class="col-50 text-right" style="padding-right: 15px">{{cook.stuffs.length}} 개</div>
+                    <div class="col-50 input-label assertive"> 재료 수</div>
+                    <div class="col-50 text-align-right text-right-padding">{{cook.stuffs.length}} 개</div>
                 </div>
             </ion-item>
             <ion-item>
-                <span class="label" style="color:#e47865;">태그 입력</span><br>
-                <div style="float: left;">
-                    <div style="display:inline;white-space: normal;height:34px;" ng-repeat="tag in cook.tags"
+                <span class="label assertive">태그 입력</span><br>
+                <div>
+                    <div class="tag" ng-repeat="tag in cook.tags"
                          ng-click="removeTag($index)">
                         <button class="button button-small button-outline button-round">
                             #{{tag.tag_name}}
@@ -49,9 +48,8 @@
                     <label class="item-input">
                         <i class="icon ion-pound placeholder-icon"></i>
 
-                        <input id="input_tag" type="text" style="white-space: normal;" placeholder="태그 명을 입력해주세요" ng-model="cook.inputTag"
-                               ng-keyup="keyUpTag($event)"
-                               style="display: inline; height: 16px; padding: 0px;">
+                        <input id="input_tag" type="text" placeholder="태그 명을 입력해주세요" ng-model="input.tag"
+                               ng-keyup="keyUpTag($event)">
                     </label>
                 </div>
             </ion-item>

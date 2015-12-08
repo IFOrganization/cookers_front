@@ -3,6 +3,18 @@
     border-radius: 13px;
 }
 
+.tag{
+    display:inline;
+    white-space: normal;
+    height:34px;
+}
+
+.text-right-padding{
+    padding-right : 15px;
+}
+
+
+
 /* gallery step & button*/
 .step{
     background-position: center;
@@ -35,17 +47,27 @@
 
 /* detail */
 
-.col-canvas{
-    margin: auto;
-    /*width:60%; !important;*/
-
+.draw-canvas{
+    width: 80%;
+    margin: 0 auto;
 }
 
-/*notice*/
-
-.item-checkbox-right .checkbox-icon {
-    float: right;
+.text-align-left{
+    text-align: left;
+}
+.text-align-right{
+    text-align: right;
 }
 
+.step-input{
+    height: 60px;
+    width:100%;
+}
+
+/* modal */
+
+.modal-black-bg{
+    background-color: #111111;
+}
 
 
