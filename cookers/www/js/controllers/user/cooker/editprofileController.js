@@ -2,7 +2,9 @@
  * Created by airnold on 15. 10. 21..
  */
 
-
+/**
+ * ssisisisisisisisisisisi
+ */
 
 angular.module('cookers.controllers')
     .controller('editprofileController',[
