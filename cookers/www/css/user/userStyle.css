@@ -57,3 +57,165 @@
 .my_cook_edit_icon{
     color:black;font-size: 20px;
 }
+
+
+
+#sign_ion_scroll{
+    width:100%;
+    height:100%;
+}
+
+#si_page_div_outer{
+    padding-top:50px;
+}
+#si_page_div_inner{
+    margin:20px;
+}
+#si_page_list{
+    margin:30px;
+    padding-top:20px;
+}
+
+#si_user_mailcheck_color{
+    color:red;
+    margin-top:5px;
+}
+
+#si_ion_md_input_margin{
+    margin-top:10px;
+}
+
+#si_check_info_color{
+    color:red;
+}
+
+#si_check_info_align{
+    text-align:center;
+}
+
+#si_find_div{
+    text-align:center;
+    margin:50px;
+}
+
+#si_button_login{
+    float:left;
+    width:40%;
+    margin-left:30px;
+}
+#si_button_join{
+    float:right;
+    width:40%;
+    margin-right:30px;
+}
+
+
+
+#ac_div_inner {
+    margin:30px;
+}
+#ac_text_align{
+    text-align:center;
+}
+#ac_agree_button{
+    margin-right:30px;
+}
+
+
+#su_div_inner{
+    margin:30px;
+}
+
+#su_email_not{
+    color:red;
+}
+#su_email_avail{
+    color:blue;
+}
+#su_code_div{
+    margin-top:5px;
+}
+#su_email_info_color{
+    color:red;
+}
+#su_nick_info_color{
+    color:red;
+}
+#su_passwd_info_color{
+    color:dimgrey;
+}
+.su_ion_md_input{
+    margin-top:5px;
+}
+#su_passwd_match_div{
+    margin-top:5px;
+}
+#su_passwd_match_color{
+    color:red;
+}
+#su_join_comfirm{
+    margin-top:5px;
+}
+
+
+
+#fe_div_inner{
+    margin:30px;
+}
+
+
+
+#fp_div_inner{
+    margin:30px;
+}
+#fp_email_send_color{
+    color:darkblue;
+}
+#fp_back_button{
+    margin-top:30px;
+}
+
+
+#profile_img_center{
+    position: absolute;
+    margin: auto;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+.user_nav_button{
+    color:white;
+}
+.follow_nick{
+    color:dimgray;
+    margin-top:7px;
+}
+
+
+#editprofile_card_div{
+    text-align:center;
+    padding:10px;
+}
+
+.editprofile_font_size{
+    font-size:30px;
+}
+
+#pw_change_div{
+    width:80%;
+    margin:auto;
+    text-align:center;
+}
+
+.pw_change_match_color{
+    color:red;
+}
+
+#pw_change_match_info_color{
+    color:dimgrey;
+}
+
+
+
