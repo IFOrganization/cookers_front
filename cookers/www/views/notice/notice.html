@@ -1,7 +1,7 @@
 <ion-view title="notice">
-    <ion-content padding="false">
+    <ion-content padding="false" overflow-scroll="true">
         <ion-list>
-            <div class="item padding-10" ng-repeat="notice in notices">
+            <div class="item padding-10" ng-repeat="notice in notices track by notice._id">
                 <div class="row">
                     <div class="col-10">
                         <img class="left-circle-img"
@@ -9,8 +9,8 @@
 
                     </div>
                     <div class="col-75 center-col">
-                        <p style="word-wrap:break-word; white-space: normal; max-height:80px; overflow: hidden; padding-top: 1%;">
-                            {{notice.content}}
+                        <p class="notice-content">
+                            {{::notice.content}}
                         </p>
                     </div>
                     <div class="col-10">
