@@ -14,107 +14,79 @@
                 <input ng-change="search()" ng-model="search_text" type="text" placeholder="{{search_type}}">
             </label>
         </div>
-        <div ng-show="recommend_show" class="item item-body">
+        <!--<div ng-show="recommend_show" class="item item-body">
             오늘의 추천 메뉴
-        </div>
+        </div>-->
     </ion-header-bar>
 
-    <ion-content padding="false" class="search_content_div">
-        <ion-list ng-show="recommend_show">
-            <!--<div class="row" style="padding:0px;">
-                <div class="col-50">
-                    <div class="item item-body" style="padding:0px;">
-                        <img class="full-image" src="img/food1.jpg">
-                    </div>
-                </div>
-                <div class="col-50">
-                    <div class="item item-body" style="padding:0px;">
-                        <img class="full-image" src="img/food2.jpg">
-                    </div>
-                </div>
-            </div>
-            <div class="row" style="padding:0px;">
-                <div class="col-50">
-                    <div class="item item-body" style="padding:0px;">
-                        <img class="full-image" src="img/food3.jpg">
-                    </div>
-                </div>
-                <div class="col-50">
-                    <div class="item item-body" style="padding:0px;">
-                        <img class="full-image" src="img/food4.jpg">
-                    </div>
-                </div>
-            </div>
-            <div class="row" style="padding:0px;">
-                <div class="col-50">
-                    <div class="item item-body" style="padding:0px;">
-                        <img class="full-image" src="img/food5.jpg">
-                    </div>
-                </div>
-                <div class="col-50">
-                    <div class="item item-body" style="padding:0px;">
-                        <img class="full-image" src="img/food6.jpg">
-                    </div>
-                </div>
-            </div>
-            <div class="row" style="padding:0px;">
-                <div class="col-50">
-                    <div class="item item-body" style="padding:0px;">
-                        <img class="full-image" src="img/food7.jpg">
-                    </div>
-                </div>
-                <div class="col-50">
-                    <div class="item item-body" style="padding:0px;">
-                        <img class="full-image" src="img/food8.jpg">
-                    </div>
-                </div>
-            </div>-->
-        </ion-list>
 
-        <!--tag ion list-->
-        <ion-list ng-show="tag_show">
-            <a class="tag_item item" ng-repeat="tag in tag_counts | orderBy:'-count'" ng-click="gotagsearchResult(tag.tag_name)">
+    <!--tag ion list-->
+    <!--collection repeat은 부모 노드에 스크롤 뷰가 꼭 필요하다. 특히 높이에 대한 값이 꼭 지정되어 있어야 한다.-->
+
+    <ion-content overflow-scroll=”true” class="search_content_div" ng-show="tag_show">
+        <ion-list>
+            <a class="tag_item item" ng-repeat="tag in tag_counts | orderBy:'-count' track by $index" ng-click="gotagsearchResult(tag.tag_name)">
                 #{{tag.tag_name}}
                 <span class="item-note badge badge-assertive">{{tag.count}}</span>
             </a>
         </ion-list>
+    </ion-content>
 
-        <!--cook ion list-->
-        <ion-list ng-show="cook_show">
-            <div class="list card" ng-repeat="cook in cook_list  | limitTo : cook_count ">
-                <a class="item item-avatar" href="#/tab/user/{{cook.w_cooker._id}}">
-                    <img src="img/unanimous.png" ng-src={{cook.w_cooker.cooker_photo}}>
-                    <div class="row home_user_parent_div">
-                        <div class="col  home_user_nickname_div">
-                            {{cook.w_cooker.nick_name}}
+
+    <!--
+        현재 search 페이지에선 collection repeat를 사용할 수 없음
+        collection repeat은 화면에 보이는 것만 렌더링하는 방식인데, 이를 위해선
+        고정된 ion-content와 고정된 item의 height 값이 필요함.
+
+        하지만 search페이지에선 상위의 탭마다 item의 height값이 달라지기 때문에
+        에러가 발생함.
+    -->
+    <!--cook ion list-->
+    <ion-content class="search_content_div" ng-show="cook_show">
+        <ion-list>
+            <ion-item class="collection_parent" ng-repeat="cook in cook_list  | limitTo : cook_count track by cook._id">
+                <div class="card following_card">
+                    <a class="item item-avatar avatar_div" href="#/tab/user/{{cook.w_cooker._id}}">
+                        <!--<img src="img/unanimous.png" ng-src={{cook.w_cooker.cooker_photo}}>-->
+                        <img src="img/nick.jpg">
+                        <div class="row home_user_parent_div">
+                            <div class="col home_user_nickname_div">
+                                {{cook.w_cooker.nick_name}}
+                            </div>
+                            <div class="col col-75 home_user_time_div">
+                                <span>{{timechange(cook.date)}}</span>
+                                <!--<time-directive time-data="cook.date"></time-directive>-->
+                            </div>
                         </div>
-                        <div class="col col-75 home_user_time_div">
-                            <time-directive time-data="cook.date"></time-directive>
+                    </a>
+
+                    <div class="item item-thumbnail-left cookdetail_btn" ng-click="openshowrecipeModal(cook._id)">
+                        <img ng-src={{cook.complete_photo}}>
+                        <!--<img src="img/recipe_testimg.jpg">-->
+                        <h2>{{cook.title}}</h2>
+                        <div class="home_desc_div">{{cook.desc}}</div>
+                        <div class="row home_btngroup">
+                            <div class="col home_btngroup_btn"><i class="ionicons ion-ios-heart"></i>&nbsp;&nbsp;&nbsp;{{cook.yummy.cookers.length}}</div>
+                            <div class="col home_btngroup_btn"><i class="ionicons ion-chatbox-working"></i>&nbsp;&nbsp;&nbsp;{{cook.reply.cookers.length}}</div>
+                            <div class="col home_btngroup_btn"><i class="ionicons ion-ios-glasses-outline"></i>&nbsp;&nbsp;&nbsp;{{cook.hits}}</div>
                         </div>
                     </div>
-                </a>
-
-                <a class="item item-thumbnail-left cookdetail_btn" ng-click="openshowrecipeModal(cook._id)">
-                    <img ng-src={{cook.complete_photo}}>
-                    <h2>{{cook.title}}</h2>
-                    <div class="home_desc_div">{{cook.desc}}</div>
-                    <div class="row home_btngroup">
-                        <div class="col home_btngroup_btn"><i class="ionicons ion-ios-heart"></i>&nbsp;&nbsp;&nbsp;{{cook.yummy.cooks.length}}</div>
-                        <div class="col home_btngroup_btn"><i class="ionicons ion-chatbox-working"></i>&nbsp;&nbsp;&nbsp;{{cook.reply.cookers.length}}</div>
-                        <div class="col home_btngroup_btn"><i class="ionicons ion-ios-glasses-outline"></i>&nbsp;&nbsp;&nbsp;{{cook.hits}}</div>
-                    </div>
-                </a>
-            </div>
-
+                </div>
+            </ion-item>
         </ion-list>
+    </ion-content>
 
-        <!--cookers ion list-->
-        <ion-list ng-show="cookers_show">
-            <a class="item item-avatar" ng-repeat="cooker in cookers_list" href="#/tab/user/{{cooker._id}}">
+
+    <!--cookers ion list-->
+    <ion-content class="search_content_div" ng-show="cookers_show">
+        <ion-list>
+            <a class="item item-avatar" ng-repeat="cooker in cookers_list track by cooker._id" href="#/tab/user/{{cooker._id}}">
                 <img src="img/unanimous.png" ng-src={{cooker.cooker_photo}}>
                 <h2 class="search_cookers_nickname">{{cooker.nick_name}}</h2>
                 <h4 class="search_cookers_statecomment">{{cooker.state_comment}}</h4>
             </a>
         </ion-list>
     </ion-content>
+
+
 </ion-view>

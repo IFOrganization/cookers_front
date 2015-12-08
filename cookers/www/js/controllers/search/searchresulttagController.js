@@ -16,8 +16,6 @@ angular.module('cookers.controllers')
             $scope.cook_list = searchresultlist;
             $scope.result_check = false;
 
-            console.log($scope.cook_list);
-
             if($scope.cook_list.length == 0){
                 $scope.result_check = true;
             }

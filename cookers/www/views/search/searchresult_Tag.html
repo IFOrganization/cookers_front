@@ -12,7 +12,7 @@
             </li>
         </ul>
         <ion-list>
-            <div class="list card" ng-repeat="cook in cook_list  | limitTo : cook_count ">
+            <div class="list card" ng-repeat="cook in cook_list  | limitTo : cook_count track by cook._id">
                 <a class="item item-avatar" href="#/tab/user/{{cook.w_cooker._id}}">
                     <!--<img class="avatar_img" ng-src={{cook.w_cooker_info.cooker_photo.path}}>-->
                     <img src="img/nick.jpg">
@@ -34,7 +34,7 @@
                     <div class="home_desc_div">{{cook.desc}}</div>
 
                     <div class="row home_btngroup">
-                        <div class="col home_btngroup_btn"><i class="ionicons ion-ios-heart"></i>&nbsp;&nbsp;&nbsp;{{cook.yummy.cooks.length}}</div>
+                        <div class="col home_btngroup_btn"><i class="ionicons ion-ios-heart"></i>&nbsp;&nbsp;&nbsp;{{cook.yummy.cookers.length}}</div>
                         <div class="col home_btngroup_btn"><i class="ionicons ion-chatbox-working"></i>&nbsp;&nbsp;&nbsp;{{cook.reply.cookers.length}}</div>
                         <div class="col home_btngroup_btn"><i class="ionicons ion-ios-glasses-outline"></i>&nbsp;&nbsp;&nbsp;{{cook.hits}}</div>
                     </div>

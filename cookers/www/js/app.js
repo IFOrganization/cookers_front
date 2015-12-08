@@ -18,6 +18,7 @@ angular.module('cookers', [
     'ngIOS9UIWebViewPatch',
     'time.directive',
     'reply.directive',
+    'ionicLazyLoad'
 ])
     .run([
         '$ionicPlatform',

@@ -54,7 +54,7 @@
 }
 
 .tag_popover_p{
-    white-space:normal;
+    white-space:normal !important;
 }
 
 .reply_input_icon{
@@ -64,6 +64,8 @@
 .popover_view_div{
     width:85%;
     margin-left: auto;
+    margin-top:20px;
+
 }
 
 .popover_item_nickname{
@@ -96,7 +98,7 @@ ion-popover-view.fit ion-content {
 }
 
 .platform-android ion-popover-view.fit {
-    margin-top: 10px;
+    margin-top: -10px !important;
 }
 
 .platform-ios ion-popover-view.fit {

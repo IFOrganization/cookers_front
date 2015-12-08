@@ -14,7 +14,7 @@
 
         <ion-content delegate-handle="mainScroll">
             <ion-list>
-                <ion-item ng-repeat="item in cookers" class="item item-avatar reply_item">
+                <ion-item ng-repeat="item in cookers track by item._id" class="item item-avatar reply_item">
                     <img src="img/unanimous.png" class="reply_item_img">
                     <div class="row reply_item_row">
                         <div class="col reply_item_nickname">

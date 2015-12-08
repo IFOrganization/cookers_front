@@ -47,7 +47,7 @@
 
 <!--ion nav view는 페이지에 진입할때마다 해당 템플릿을 캐싱해 둠-->
 <script id="templates/tabs.html" type="text/ng-template">
-    <ion-tabs class="tabs-assertive">
+    <ion-tabs class="tabs-assertive cookers_tabs">
 
         <ion-tab icon="ion-home" ng-click="goHome()" href="#/tab/home">
             <!—ion-nav-view 의 name 속성은 page transition을 위해 필요. 없다면 페이지 애니메이션없이 단순 로드만 하게 됨. —>
@@ -140,6 +140,7 @@
 <script src="lib/external/angular-ios-uiwebview-patch/angular-ios9-uiwebview-patch.js"></script>
 <script src="lib/external/socket.io-client/socket.io.js"></script>
 <script src="lib/external/angular-socket-io/socket.js" ></script>
+<script src="lib/external/ionic-image-lazy-load/ionic-image-lazy-load.js"></script>
 
 </body>
 </html>
