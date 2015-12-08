@@ -5,7 +5,7 @@
     <ion-nav-buttons side="left">
         <button class="button button-small button-clear" ng-click="gotoProfile();">
 
-            <i style="color:white;" class="icon ion-arrow-left-b placeholder-icon"></i>
+            <i  class="icon ion-arrow-left-b placeholder-icon user_nav_button"></i>
 
         </button>
     </ion-nav-buttons>
@@ -19,7 +19,7 @@
             <ion-item class="item-avatar" ng-repeat="follow_list in cooker_follow_list">
 
                 <img ng-src="{{follow_list.cooker_photo == '' ? 'img/chef31.png' : follow_list.cooker_photo}}">
-                <h2 style="color:dimgray;margin-top:7px;">{{follow_list.nick_name}}</h2>
+                <h2 class="follow_nick">{{follow_list.nick_name}}</h2>
 
                 <ion-option-button class="button-calm"
                                    ng-click="cookerInfoEvent(follow_list._id)">
