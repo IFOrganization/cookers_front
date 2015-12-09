@@ -20,7 +20,6 @@ angular.module('cookers.controllers')
                 $scope.notices = noticeService.getNotices();
             });
 
-
             /**
              * check button click Method
              */
@@ -63,13 +62,13 @@ angular.module('cookers.controllers')
              * InfiniteScroll.
              */
             $scope.moredata=false;
-            $scope.notice_count = 8;
+            $scope.notice_count = 15;
             $scope.loadMoreData = function(){
                 if($scope.notices.length <= 0 && $scope.notice_count < $scope.notices.length) {
                     $scope.moredata=true;
                     return;
                 }
-                $scope.notice_count =
+                $scope.notice_count +=10;
                 $scope.$broadcast('scroll.infiniteScrollComplete');
             }
 

@@ -38,7 +38,7 @@ angular.module('cookers.controllers')
                             }
                         }
                         cookSummaryService.addStuff($scope.input.stuff);
-                        $scope.input.stuff="";
+                        $scope.input.stuff=null;
                     }
                 }
                 angular.element(document.querySelector( '#input_stuff' )).css("color","black");
@@ -62,7 +62,7 @@ angular.module('cookers.controllers')
                             }
                         }
                         cookSummaryService.addTag($scope.input.tag);
-                        $scope.input.tag ="";
+                        $scope.input.tag =null;
                     }
                 }
                 angular.element(document.querySelector( '#input_tag' )).css("color","black");
