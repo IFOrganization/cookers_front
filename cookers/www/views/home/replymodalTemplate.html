@@ -12,10 +12,11 @@
             </h5>
         </div>
 
-        <ion-content delegate-handle="mainScroll">
+        <ion-content delegate-handle="mainScroll" overflow-scroll="true" lazy-scroll>
             <ion-list>
                 <ion-item ng-repeat="item in cookers track by item._id" class="item item-avatar reply_item">
-                    <img src="img/unanimous.png" class="reply_item_img">
+                    <img lazy-scroll-resize="true" image-lazy-src="img/unanimous.png" image-lazy-distance-from-bottom-to-load="100"
+                         class="reply_item_img">
                     <div class="row reply_item_row">
                         <div class="col reply_item_nickname">
                             {{item.cooker_id.nick_name}}

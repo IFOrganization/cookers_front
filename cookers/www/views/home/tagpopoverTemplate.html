@@ -1,6 +1,7 @@
 <!--<ion-popover-view class="fit popover_view_div">-->
 <ion-popover-view class="fit popover_view_div">
-    <ion-content scroll="false">
+    <!--<ion-content scroll="false">-->
+    <ion-content overflow-scroll="true">
         <ion-list ng-show="userlist_show">
             <a class="item item-avatar" ng-repeat="cooker in cooker_list track by cooker._id" ng-click="choosecookertag(cooker.nick_name, 'cooker')">
                 <img src="img/nick.jpg">
