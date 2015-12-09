@@ -17,6 +17,13 @@ angular.module('cookers.services')
             var originCook = {};
             var httpEditCook = {};
             var initImage = 'img/no_image.jpg';
+            /**
+             * func - init : 초기화.
+             * _id : cook id
+             * update_flag : update 유무 파악
+             * summary : [0] - cooksummary.
+             *           [sumarry.length-1] - 버튼.
+             */
             var init = function(){
                 cook = {
                     _id : "",
@@ -24,25 +31,24 @@ angular.module('cookers.services')
                     summary : [{
                         title : '',
                         desc : '',
-                        inputStuff : '',
                         stuffs : [],
-                        inputTag : '',
                         tags : [],
                         photo : 'img/cooksummary.png'
                     },
-                    {
-                        plus_button : true
-                    }]
+                        {
+                            plus_button : true
+                        }]
                 };
             }
             init();
 
             /**
-             * stringValidationCheck
-             * tagValidationCheck
-             * stepValidationCheck
+             * stringValidationCheck    : title, desc Check
+             * tagValidationCheck       : stuff/tag Check
+             * stepValidationCheck      : step Check
+             * stepImageValidationCheck : step img Check
              *
-             * 위 3개의 메서드는 모두 validation check를 위한 메서드.
+             * 위 4개의 메서드는 모두 validation check를 위한 메서드.
              */
             var stringValidationCheck = function(property, title){
                 if(property ==undefined || property.trim()==''){
@@ -100,12 +106,7 @@ angular.module('cookers.services')
                     return cook;
                 },
 
-                initInputStuff : function(){
-                    cook.summary[0].inputStuff = '';
-                },
-
                 addStuff : function(stuff){
-                    if(stuff===undefined) stuff = cook.summary[0].inputStuff;
                     cook.summary[0].stuffs.push({
                         stuff_name : stuff
                     });
@@ -117,10 +118,6 @@ angular.module('cookers.services')
                     }else{
                         cook.summary[0].stuffs.splice(index,1);
                     }
-                },
-
-                initInputTag : function(){
-                    cook.summary[0].inputTag = '';
                 },
 
                 addTag : function(tag_name){

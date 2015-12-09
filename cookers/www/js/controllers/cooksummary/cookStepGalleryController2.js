@@ -14,10 +14,6 @@ angular.module('cookers.controllers')
 
             $scope.addCookSummary = function(){
                 cookSummaryService.addSummary()
-                //$timeout(, 1000);
-                //var str = '#ani'+ ($scope.cook.summary.length-2);
-                //console.log(str);
-                ////$(str).addClass('animated fadeInDown');
 
                 $ionicScrollDelegate.scrollBottom(true);
 
@@ -44,7 +40,6 @@ angular.module('cookers.controllers')
                 if($scope.cook.summary.length < 12){
                     $scope.plus_button_condition = false;
                 }
-                console.log("delete : " + index+"//"+ $scope.plus_button_condition);
                 if(cookSummaryService.removeSummary(index)==2){
                     $scope.modifyCondition = false;
                 };
@@ -58,7 +53,6 @@ angular.module('cookers.controllers')
              */
             $scope.selectStep = function(index){
                 if($scope.modifyCondition) return;
-                console.log("select : " + index +" go to detail page");
                 if(index ==0 ){
                     $state.go("tabs.cooksummary");
                 }else{
@@ -76,7 +70,8 @@ angular.module('cookers.controllers')
 
                     cookSummaryService.setHttpCook();
 
-                    console.log(cookSummaryService.getHttpCook());
+                    //console.log(cookSummaryService.getHttpCook());
+
                     if($scope.cook.update_flag) {
                         /**
                          * cook update.
@@ -111,8 +106,14 @@ angular.module('cookers.controllers')
                         cookSummaryService.submitCook().then(function(result){
                             console.log(result);
                             if(result.state == 200) {
+                                /**
+                                 * cook register success.
+                                 */
                                 var return_cook = result;
                                 cookSummaryService.submitPhoto(return_cook._id, return_cook.steps).then(function(result){
+                                    /**
+                                     * cook upload image File.
+                                     */
                                     console.log(result);
                                     if(result.state == 200){
                                         $ionicLoading.show({
@@ -124,6 +125,10 @@ angular.module('cookers.controllers')
                                         $state.go("tabs.home");
 
                                     }else{
+                                        /**
+                                         * img file upload Fail.
+                                         * reply, yummy Object Delete in Mongo
+                                         */
                                         cookSummaryService.submitFail(return_cook._id, return_cook.yummy, return_cook.reply).then(function(){
                                             $ionicLoading.show({
                                                 showBackdrop: true,
@@ -134,6 +139,9 @@ angular.module('cookers.controllers')
                                     }
                                 });
                             }else{
+                                /**
+                                 * reply, yummy Object Delete in Mongo
+                                 */
                                 cookSummaryService.submitFail(return_cook._id, return_cook.yummy, return_cook.reply).then(function(){
                                     $ionicLoading.show({
                                         showBackdrop: true,

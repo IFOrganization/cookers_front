@@ -6,6 +6,10 @@ angular.module('cookers.controllers')
         function($scope, $state, cookSummaryService){
             $scope.cook = cookSummaryService.getMainSummary();
             console.log($scope.cook);
+            $scope.input = {
+                stuff :"",
+                tag :""
+            };
 
             $scope.nextBtnClick = function(){
                 console.log($scope.cook);
@@ -19,20 +23,22 @@ angular.module('cookers.controllers')
              * @param event
              */
             $scope.kyeUpStuff = function(event){
-                if(event.keyCode===13 || event.keyCode===188){
-                    if($scope.cook.inputStuff.trim()=="") return;
-                    $scope.cook.inputStuff = $scope.cook.inputStuff.replace(/\s+/gi,' ');
-                    //$scope.cook.inputStuff = $scope.cook.inputStuff.replace(/\d[0-3]\S*/gi,'');
 
-                    if($scope.cook.inputStuff.length>0){
+                if(event.keyCode===13 || event.keyCode===188){
+
+                    if($scope.input.stuff.trim()=="") return;
+
+                    $scope.input.stuff = $scope.input.stuff.replace(/\s+&/gi,' ');
+
+                    if($scope.input.stuff.length>0){
                         for(var i in $scope.cook.stuffs){
-                            if($scope.cook.inputStuff === $scope.cook.stuffs[i].stuff_name){
+                            if($scope.input.stuff === $scope.cook.stuffs[i].stuff_name){
                                 angular.element(document.querySelector( '#input_stuff' )).css("color","red");
                                 return;
                             }
                         }
-                        cookSummaryService.addStuff($scope.cook.inputStuff);
-                        cookSummaryService.initInputStuff();
+                        cookSummaryService.addStuff($scope.input.stuff);
+                        $scope.input.stuff="";
                     }
                 }
                 angular.element(document.querySelector( '#input_stuff' )).css("color","black");
@@ -44,20 +50,19 @@ angular.module('cookers.controllers')
 
             $scope.keyUpTag = function(event){
                 if(event.keyCode===13 || event.keyCode===188 ){
-                    if($scope.cook.inputTag.trim()=="") return;
-                    $scope.cook.inputTag = $scope.cook.inputTag.replace(/[\{\}\[\]\/?.,;:|\)*~`!^\-+<>@\#$%&\\\=\(\'\"]/gi,'');
-                    $scope.cook.inputTag = $scope.cook.inputTag.replace(/\s*/gi,'');
+                    if($scope.input.tag.trim()=="") return;
+                    $scope.input.tag = $scope.input.tag.replace(/[\{\}\[\]\/?.,;:|\)*~`!^\-+<>@\#$%&\\\=\(\'\"\s*]/gi,'');
 
-                    if($scope.cook.inputTag.length>0){
+                    if($scope.input.tag.length>0){
 
                         for(var i in $scope.cook.tags){
-                            if($scope.cook.inputTag === $scope.cook.tags[i].tag_name){
+                            if($scope.input.tag === $scope.cook.tags[i].tag_name){
                                 angular.element(document.querySelector( '#input_tag' )).css("color","red");
                                 return;
                             }
                         }
-                        cookSummaryService.addTag($scope.cook.inputTag);
-                        cookSummaryService.initInputTag();
+                        cookSummaryService.addTag($scope.input.tag);
+                        $scope.input.tag ="";
                     }
                 }
                 angular.element(document.querySelector( '#input_tag' )).css("color","black");
