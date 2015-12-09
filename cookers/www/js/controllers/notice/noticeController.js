@@ -15,7 +15,7 @@ angular.module('cookers.controllers')
              * ---> noticeService Creating... and  get message that group by noticeCode...
              *
              */
-            $scope.notices = noticeService.getNotices();
+
             $scope.$on('notice_reset',function(){
                 $scope.notices = noticeService.getNotices();
             });
@@ -61,17 +61,17 @@ angular.module('cookers.controllers')
             /**
              * InfiniteScroll.
              */
-            $scope.moredata=false;
-            $scope.notice_count = 15;
+            $scope.moredata=true;
+            $scope.notice_count = 10;
             $scope.loadMoreData = function(){
-                if($scope.notices.length <= 0 && $scope.notice_count < $scope.notices.length) {
-                    $scope.moredata=true;
-                    return;
+                console.log($scope.notice_count+":"+$scope.notices.length);
+                if($scope.notices.length != 0 && ($scope.notices.length < $scope.notice_count  )) {
+                    $scope.moredata=false;
                 }
                 $scope.notice_count +=10;
                 $scope.$broadcast('scroll.infiniteScrollComplete');
             }
-
+            $scope.notices = noticeService.getNotices();
             /**
              * 모달 open. 현재는 한개의 레시피만 열리지만, 추후 파라미터값(레시피 id와 같은)을 전송하여 해당 레시피의 상세 를 볼 수 있게함.
              */
