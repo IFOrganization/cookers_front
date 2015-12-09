@@ -59,6 +59,19 @@ angular.module('cookers.controllers')
                 //    }
                 //});
             }
+            /**
+             * InfiniteScroll.
+             */
+            $scope.moredata=false;
+            $scope.notice_count = 8;
+            $scope.loadMoreData = function(){
+                if($scope.notices.length <= 0 && $scope.notice_count < $scope.notices.length) {
+                    $scope.moredata=true;
+                    return;
+                }
+                $scope.notice_count =
+                $scope.$broadcast('scroll.infiniteScrollComplete');
+            }
 
             /**
              * 모달 open. 현재는 한개의 레시피만 열리지만, 추후 파라미터값(레시피 id와 같은)을 전송하여 해당 레시피의 상세 를 볼 수 있게함.

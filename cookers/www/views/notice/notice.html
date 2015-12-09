@@ -1,13 +1,10 @@
 <ion-view title="notice">
-    <ion-content overflow-scroll="true" padding="false">
-    <ion-content padding="false" overflow-scroll="true">
+    <ion-content overflow-scroll="true" padding="false" lazy-scroll>
         <ion-list>
             <div class="item padding-10" ng-repeat="notice in notices track by notice._id">
                 <div class="row">
                     <div class="col-10">
-                        <img class="left-circle-img"
-                             src="img/unanimous.png">
-
+                        <img class="left-circle-img" lazy-scroll-resize="true" image-lazy-src="img/unanimous.png" image-lazy-distance-from-bottom-to-load="100">
                     </div>
                     <div class="col-75 center-col">
                         <p class="notice-content">
@@ -22,6 +19,11 @@
                     </div>
                 </div>
             </div>
+            <ion-infinite-scroll distance="50"
+                                 icon="ion-loading-c"
+                                 on-infinite="loadMoreData()"
+                                 ng-if="!moreData">
+            </ion-infinite-scroll>
         </ion-list>
     </ion-content>
 </ion-view>
