@@ -341,12 +341,12 @@ angular.module('cookers.controllers')
                         }
                     }
 
-                    $cordovaPush.register(push_config).then(function(deviceToken) {
+                    /*$cordovaPush.register(push_config).then(function(deviceToken) {
                         console.log("deviceToken: " + deviceToken);
                         $scope.signup.dev_token = deviceToken;
                     }, function(err) {
                         console.log("deviceToken Regist Fail.");
-                    });
+                    });*/
 
                     signService.signupHttpRequest($scope.signup).then(function (sign_success_status) {
                         if (sign_success_status === true) {

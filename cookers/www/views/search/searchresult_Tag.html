@@ -5,7 +5,7 @@
             #{{tag_keyword}} 검색결과
         </h1>
     </ion-header-bar>
-    <ion-content padding="false">
+    <ion-content padding="false" overflow-scroll="true" lazy-scroll>
         <ul class="list" ng-show="result_check">
             <li class="item">
                 태그 검색 결과가 없습니다.
@@ -15,7 +15,7 @@
             <div class="list card" ng-repeat="cook in cook_list  | limitTo : cook_count track by cook._id">
                 <a class="item item-avatar" href="#/tab/user/{{cook.w_cooker._id}}">
                     <!--<img class="avatar_img" ng-src={{cook.w_cooker_info.cooker_photo.path}}>-->
-                    <img src="img/nick.jpg">
+                    <img lazy-scroll-resize="true" image-lazy-src="img/nick.jpg" image-lazy-distance-from-bottom-to-load="100">
                     <div class="row home_user_parent_div">
                         <div class="col home_user_nickname_div">
                             {{cook.w_cooker.nick_name}}
@@ -28,7 +28,7 @@
 
                 <a class="item item-thumbnail-left cookdetail_btn" ng-click="openshowrecipeModal(cook._id)">
                     <!--<img ng-src={{cook.comple_photo.path}}>-->
-                    <img src="img/recipe_testimg.jpg">
+                    <img lazy-scroll-resize="true" image-lazy-src="{{cook.comple_photo.path}}" image-lazy-distance-from-bottom-to-load="100">
                     <h2>{{cook.title}}</h2>
 
                     <div class="home_desc_div">{{cook.desc}}</div>

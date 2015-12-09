@@ -23,7 +23,7 @@
     <!--tag ion list-->
     <!--collection repeat은 부모 노드에 스크롤 뷰가 꼭 필요하다. 특히 높이에 대한 값이 꼭 지정되어 있어야 한다.-->
 
-    <ion-content overflow-scroll=”true” class="search_content_div" ng-show="tag_show">
+    <ion-content overflow-scroll="true" class="search_content_div" ng-show="tag_show">
         <ion-list>
             <a class="tag_item item" ng-repeat="tag in tag_counts | orderBy:'-count' track by $index" ng-click="gotagsearchResult(tag.tag_name)">
                 #{{tag.tag_name}}
@@ -42,13 +42,13 @@
         에러가 발생함.
     -->
     <!--cook ion list-->
-    <ion-content class="search_content_div" ng-show="cook_show">
+    <ion-content overflow-scroll="true" lazy-scroll class="search_content_div" ng-show="cook_show">
         <ion-list>
             <ion-item class="collection_parent" ng-repeat="cook in cook_list  | limitTo : cook_count track by cook._id">
                 <div class="card following_card">
                     <a class="item item-avatar avatar_div" href="#/tab/user/{{cook.w_cooker._id}}">
                         <!--<img src="img/unanimous.png" ng-src={{cook.w_cooker.cooker_photo}}>-->
-                        <img src="img/nick.jpg">
+                        <img lazy-scroll-resize="true" image-lazy-src="img/nick.jpg" image-lazy-distance-from-bottom-to-load="100">
                         <div class="row home_user_parent_div">
                             <div class="col home_user_nickname_div">
                                 {{cook.w_cooker.nick_name}}
@@ -61,7 +61,7 @@
                     </a>
 
                     <div class="item item-thumbnail-left cookdetail_btn" ng-click="openshowrecipeModal(cook._id)">
-                        <img ng-src={{cook.complete_photo}}>
+                        <img lazy-scroll-resize="true" image-lazy-src="{{cook.complete_photo}}" image-lazy-distance-from-bottom-to-load="100">
                         <!--<img src="img/recipe_testimg.jpg">-->
                         <h2>{{cook.title}}</h2>
                         <div class="home_desc_div">{{cook.desc}}</div>
@@ -78,10 +78,11 @@
 
 
     <!--cookers ion list-->
-    <ion-content class="search_content_div" ng-show="cookers_show">
+    <ion-content overflow-scroll="true" lazy-scroll class="search_content_div" ng-show="cookers_show">
         <ion-list>
             <a class="item item-avatar" ng-repeat="cooker in cookers_list track by cooker._id" href="#/tab/user/{{cooker._id}}">
-                <img src="img/unanimous.png" ng-src={{cooker.cooker_photo}}>
+                <!--<img src="img/unanimous.png" ng-src={{cooker.cooker_photo}}>-->
+                <img lazy-scroll-resize="true" image-lazy-src="{{cooker.cooker_photo}}" image-lazy-distance-from-bottom-to-load="100">
                 <h2 class="search_cookers_nickname">{{cooker.nick_name}}</h2>
                 <h4 class="search_cookers_statecomment">{{cooker.state_comment}}</h4>
             </a>
