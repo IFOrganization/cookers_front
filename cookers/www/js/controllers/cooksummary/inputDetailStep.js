@@ -28,6 +28,7 @@ angular.module('cookers.controllers')
             }
 
 
+
             /**
              *  Camera Service
              *  1   : Camera
@@ -41,10 +42,10 @@ angular.module('cookers.controllers')
             }
 
             $scope.getCamera = function(){
-                $scope.openModal();
-                //cameraService.optionSetting(1);
-                //
-                //cameraService.getPicture().then(call_back);
+                //$scope.openModal();
+                cameraService.optionSetting(1);
+
+                cameraService.getPicture().then(call_back);
             }
 
             var call_back = function(base64_data){
@@ -62,6 +63,10 @@ angular.module('cookers.controllers')
              */
             $scope.selectedPhotoData = $scope.step.photo;
             $scope.modal = {};
+            $scope.screen = {
+                width : window.innerWidth,
+                height : window.innerHeight-43
+            };
             $scope.modalPreBtnClick = function(){
                 console.log("modal pre");
                 $scope.modal.hide();

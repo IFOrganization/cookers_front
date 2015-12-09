@@ -39,8 +39,12 @@ angular.module('cookers', [
                 // for form inputs)
                 //
                 if (window.cordova && window.cordova.plugins.Keyboard) {
-                    cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
-                    if(ionic.Platform.isIOS()) cordova.plugins.Keyboard.disableScroll(true);
+                    if(ionic.Platform.isIOS()){
+                        cordova.plugins.Keyboard.hideKeyboardAccessoryBar(false);
+                        cordova.plugins.Keyboard.disableScroll(true);
+                    }else{
+                        cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
+                    }
                 }
                 if (window.StatusBar) {
                     StatusBar.styleDefault();
