@@ -176,6 +176,45 @@ angular.module('cookers', [
                 }
             })
 
+            .state('tabs.showcook', {
+                url: "/showcook/:cook_id",
+                views: {
+                    'home-tab': {
+                        templateUrl: "views/home/showcookingmodalTemplate.html",
+                        controller : "showcookingmodalCtrl"
+                    }
+                },
+                resolve:{
+                    getcookstepList : ['cookstepService', '$stateParams',
+                        function(cookstepService, $stateParams){
+                            return cookstepService.getcookStep($stateParams.cook_id).then(function(data){
+                                return data;
+                            })
+                        }]
+                }
+            })
+
+            .state('tabs.showcookReply', {
+                url: "/showcookReply/:cook_id/:reply_id",
+                views: {
+                    'home-tab': {
+                        templateUrl: "views/home/replymodalTemplate.html",
+                        controller : "replymodalCtrl"
+                    }
+                },
+                resolve:{
+                    getreplydataList : ['getreplyinitialdataService', '$stateParams',
+                        function(getreplyinitialdataService, $stateParams){
+                            var initial_object = {};
+                            initial_object.reply_id = $stateParams.reply_id;
+                            initial_object.cook_id = $stateParams.cook_id;
+                            return getreplyinitialdataService.initialreplydataHttpRequest(initial_object).then(function(data){
+                                return data;
+                            })
+                        }]
+                }
+            })
+
             .state('tabs.search', {
                 url: '/search',
                 views:{ //여러 개의 views json 객체는 만들 수 없음 대신 views 객체 안쪽에는 여러개를 만들 수 있음.

@@ -6,7 +6,7 @@ angular.module('cookers.services')
     .factory('socket',[
         'socketFactory',
         function(socketFactory) {
-            var myIoSocket = io.connect('http://localhost:3100');
+            var myIoSocket = io.connect('http://' + '133.130.102.228' + ':' + '3100');
 
             mySocket = socketFactory({
                 ioSocket: myIoSocket

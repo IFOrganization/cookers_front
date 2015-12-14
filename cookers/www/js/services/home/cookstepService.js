@@ -45,6 +45,7 @@ angular.module('cookers.services')
             var request_obj = {};
             request_obj.increase_hit = function(cook_id){
 
+                console.log(cook_id);
                 var defer = $q.defer();
                 $http({
                     url: address+"/rest/cooks/increasehit/"+cook_id,

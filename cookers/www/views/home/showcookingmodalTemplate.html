@@ -1,37 +1,38 @@
-<div ng-controller="showcookingmodalCtrl" class="modal image-modal transparent">
+<ion-view title="{{current_cook.title}}">
+    <ion-nav-buttons side="left">
+        <button class="button icon-left ion-ios-arrow-thin-left button-clear" ng-click="backtohome()"></button>
+    </ion-nav-buttons>
+    <ion-nav-buttons side="right">
+        <button class="button icon-left button-clear"
+                ng-class="{true: 'ion-android-star', false: 'ion-android-star-outline'}[is_zimmy]"
+                ng-click="manageZimmy()">
+        </button>
+    </ion-nav-buttons>
     <ion-slide-box on-slide-changed="slideChanged(index)" show-pager="false">
-        <!--0번째 step ion-slide (완성사진과 재료를 보여줌)-->
         <ion-slide>
             <!--complete step header-->
             <div class="list card showcookCard">
-                <ion-header-bar class="bar-assertive">
-                    <button class="button icon-left ion-ios-arrow-thin-left button-clear" ng-click="closeModal()"></button>
-                    <h1 class="title">{{current_cook.title}}</h1>
-                    <button class="button icon-left button-clear"
-                            ng-class="{true: 'ion-android-star', false: 'ion-android-star-outline'}[is_zimmy]"
-                            ng-click="manageZimmy()">
-                    </button>
-                </ion-header-bar>
-
-                <ion-content delegate-handle="mainScroll" padding="true" has-footer="true">
+                <ion-content delegate-handle="mainScroll" padding="true">
                     <ion-list>
                         <!--모달에서 user페이지로 가기 때문에 user페이지에서 뒤로가기를 눌러도 다시 쿡 모달로 돌아가지 않는다.
                         애들한테 얘기해볼 것-->
 
                         <!--<a class="item item-avatar avatar_div" ng-click="gouserstateincookModal()" href="#/tab/user/{{current_cook.w_cooker._id}}">
-                            <img src="img/nick.jpg">
-                            <h2 style="font-size:15px; font-weight: bold; color:slategrey">{{current_cook.w_cooker.nick_name}}</h2>
-                            <h4 style="font-size:12px; padding-top:5px;">{{current_cook.w_cooker.state_comment}}</h4>
+                        <img src="img/nick.jpg">
+                        <h2 style="font-size:15px; font-weight: bold; color:slategrey">{{current_cook.w_cooker.nick_name}}</h2>
+                        <h4 style="font-size:12px; padding-top:5px;">{{current_cook.w_cooker.state_comment}}</h4>
                         </a>-->
                         <!--<div class="item item-image cookmodal_img_div"  style="width:100%; height:300px;">-->
                         <div class="item item-image cookmodal_img_div">
-                            <img ng-src={{current_cook.complete_photo}}>
-                            <!--<img src="img/food3.jpg">-->
+                            <!--<img ng-src={{current_cook.complete_photo}}>-->
+                            <img ng-src="img/food3.jpg">
                         </div>
+
+
                         <div class="tag_div">
                             <button class="button button-small button-clear button-positive tag_button"
                                     ng-repeat="tag in current_cook.tags track by tag._id" ng-click="tag_clicked(tag.tag_name)">
-                                #{{tag.tag_name}}
+                                #{{::tag.tag_name}}
                             </button>
                         </div>
 
@@ -39,7 +40,7 @@
                             <div class="item item-text-wrap">
                                 쿡 재료 :
                             <span ng-repeat="stuff in current_cook.stuffs track by stuff._id">
-                                {{$index != current_cook.stuffs.length-1 ? stuff.stuff_name+"," : stuff.stuff_name}}
+                                {{::$index != current_cook.stuffs.length-1 ? stuff.stuff_name+"," : stuff.stuff_name}}
                             </span>
                             </div>
                         </div>
@@ -47,63 +48,65 @@
                 </ion-content>
 
                 <!--complete step button group-->
-                <ion-footer-bar class="bar-assertive footer_btn_group">
-                    <div class="item tabs tabs-assertive tabs-icon-left">
-                        <a class="tab-item" ng-click="yummyClicked()">
-                            <i class="icon ion-android-favorite" ng-show="yummy_check"></i>
-                            <i class="icon ion-android-favorite-outline" ng-hide="yummy_check"></i>
+                <ion-footer-bar class="button-bar bar">
+                    <div class="button-bar">
+                        <a class="button button-clear" ng-click="yummyClicked()">
+                            <i class="icon ion-android-favorite my-icon" ng-show="yummy_check"></i>
+                            <i class="icon ion-android-favorite-outline my-icon" ng-hide="yummy_check"></i>
                             <span class="count_span">&nbsp;&nbsp;&nbsp;{{yummy_count}}</span>
                         </a>
-                        <a class="tab-item" ng-click="addReply()">
-                            <i class="icon ion-chatbox"></i>
+
+                        <a class="button button-clear" ng-click="addReply()">
+                            <i class="icon ion-chatbox my-icon"></i>
                             <span class="count_span">&nbsp;&nbsp;&nbsp;{{reply_count}}</span>
                         </a>
-                        <a class="tab-item" ng-click="share_social()">
-                            <i class="icon ion-android-share-alt"></i>
+
+                        <a class="button button-clear" ng-click="share_social()">
+                            <i class="icon ion-android-share-alt my-icon"></i>
                         </a>
-                        <a class="tab-item" ng-click="show_summary()">
-                            <i class="icon ion-ios-grid-view"></i>
+
+                        <a class="button button-clear" ng-click="show_summary()">
+                            <i class="icon ion-ios-grid-view my-icon"></i>
                         </a>
                     </div>
                 </ion-footer-bar>
             </div>
         </ion-slide>
-
         <ion-slide ng-repeat="step in current_cook.steps track by step._id">
             <!--steps header-->
             <div class="list card showcookCard">
                 <ion-header-bar class="bar-assertive">
-                    <button class="button icon-left ion-ios-arrow-thin-left button-clear" ng-click="closeModal()"></button>
-                    <h1 class="title">{{current_cook.title}}</h1>
+                    <button class="button icon-left ion-ios-arrow-thin-left button-clear" ng-click="backtohome()"></button>
+                    <h1 class="title">{{::current_cook.title}}</h1>
                     <button class="button icon-left button-clear"
                             ng-class="{true: 'ion-android-star', false: 'ion-android-star-outline'}[is_zimmy]"
                             ng-click="manageZimmy()">
                     </button>
                 </ion-header-bar>
 
-                <!--steps showcookBody-->
+                <!--&lt;!&ndash;steps showcookBody&ndash;&gt;-->
                 <ion-content delegate-handle="mainScroll" padding="true" has-footer="true">
                     <ion-list>
                         <!--<a class="item item-avatar avatar_div" ng-click="gouserstateincookModal()" href="#/tab/user/{{current_cook.w_cooker._id}}">
-                            <img src="img/nick.jpg">
-                            <h2 style="font-size:15px; font-weight: bold; color:slategrey">{{current_cook.w_cooker.nick_name}}</h2>
-                            <h4 style="font-size:12px; padding-top:5px;">{{current_cook.w_cooker.state_comment}}</h4>
+                        <img src="img/nick.jpg">
+                        <h2 style="font-size:15px; font-weight: bold; color:slategrey">{{current_cook.w_cooker.nick_name}}</h2>
+                        <h4 style="font-size:12px; padding-top:5px;">{{current_cook.w_cooker.state_comment}}</h4>
                         </a>-->
                         <div class="item item-image cookmodal_img_div">
-                            <img ng-src={{step.photo}}>
+                            <img ng-src={{::step.photo}}>
                             <!--<img src="img/food3.jpg">-->
                         </div>
 
                         <div class="tag_div">
                             <button class="button button-small button-clear button-positive tag_button"
                                     ng-repeat="tag in current_cook.tags track by tag._id" ng-click="tag_clicked(tag.tag_name)">
-                                #{{tag.tag_name}}
+                                #{{::tag.tag_name}}
                             </button>
                         </div>
 
                         <div class="card">
                             <div class="item item-text-wrap">
-                                {{step.content}}
+                                {{::step.content}}
                             </div>
                         </div>
 
@@ -112,25 +115,29 @@
             </div>
 
             <!--steps button group-->
-            <ion-footer-bar class="bar-assertive footer_btn_group">
-                <div class="item tabs tabs-assertive tabs-icon-left">
-                    <a class="tab-item">
-                        <i class="icon ion-android-favorite" ng-show="yummy_check" ng-click="yummyClicked()"></i>
-                        <i class="icon ion-android-favorite-outline" ng-hide="yummy_check" ng-click="yummyClicked()"></i>
+            <ion-footer-bar class="button-bar bar">
+                <div class="button-bar">
+                    <a class="button button-clear" ng-click="yummyClicked()">
+                        <i class="icon ion-android-favorite my-icon" ng-show="yummy_check"></i>
+                        <i class="icon ion-android-favorite-outline my-icon" ng-hide="yummy_check"></i>
                         <span class="count_span">&nbsp;&nbsp;&nbsp;{{yummy_count}}</span>
                     </a>
-                    <a class="tab-item" ng-click="addReply()">
-                        <i class="icon ion-chatbox"></i>
+
+                    <a class="button button-clear" ng-click="addReply()">
+                        <i class="icon ion-chatbox my-icon"></i>
                         <span class="count_span">&nbsp;&nbsp;&nbsp;{{reply_count}}</span>
                     </a>
-                    <a class="tab-item" ng-click="share_social()">
-                        <i class="icon ion-android-share-alt"></i>
+
+                    <a class="button button-clear" ng-click="share_social()">
+                        <i class="icon ion-android-share-alt my-icon"></i>
                     </a>
-                    <a class="tab-item" ng-click="show_summary()">
-                        <i class="icon ion-ios-grid-view"></i>
+
+                    <a class="button button-clear" ng-click="show_summary()">
+                        <i class="icon ion-ios-grid-view my-icon"></i>
                     </a>
                 </div>
             </ion-footer-bar>
         </ion-slide>
+
     </ion-slide-box>
-</div>
+</ion-view>
