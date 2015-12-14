@@ -83,35 +83,18 @@ angular.module('cookers.controllers')
 
             }
 
-            $scope.openshowrecipeModal = function(cook_id){
-                /**
-                 * 모달 초기화 함수.
-                 * 모달의 경우 app.js 내의 state로서 정의할 수 없다.
-                 */
-
-                /**
-                 * 아래의 서비스를 통해 cook_id를 유지시키고 서버로부터 해당 cook정보를 가져온다.
-                 */
-                currentinfoService.set_currentcook_id(cook_id);
-
-                $ionicModal.fromTemplateUrl('views/home/showcookingmodalTemplate.html', {
-                    scope: $scope,
-                    animation: 'mh-slide'
-                }).then(function(modal) {
-                    $scope.modal = modal;
-                });
-
+            $scope.gotoshowcookingTemplate = function(cook_id){
                 $ionicLoading.show({
                     showBackdrop: false,
                     showDelay: 0,
-                    template : '<ion-spinner icon="lines" class="spinner-energized"></ion-spinner>'
+                    template : '<ion-spinner icon="spiral" class="spinner-assertive"></ion-spinner>'
                 });
+
+                $state.go('tabs.showcook',{cook_id:cook_id});
 
                 $timeout(function () {
                     $ionicLoading.hide();
 
-                    $ionicSlideBoxDelegate.slide(0);
-                    $scope.modal.show();
                 }, 1000);
             };
 

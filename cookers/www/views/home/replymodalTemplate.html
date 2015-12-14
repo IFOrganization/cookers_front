@@ -1,9 +1,8 @@
-<div ng-controller="replymodalCtrl" class="modal image-modal transparent">
+<ion-view title="{{::cook_model.title}}">
+    <ion-nav-buttons side="left">
+        <button class="button icon-left ion-ios-arrow-thin-left button-clear" ng-click="backtocook()"></button>
+    </ion-nav-buttons>
     <div class="card showcookCard">
-        <ion-header-bar class="bar-assertive">
-            <button class="button icon-left ion-ios-arrow-thin-left button-clear" ng-click="closeModal()"></button>
-            <h1 class="title">{{cook_model.title}}</h1>
-        </ion-header-bar>
         <div class="non_reply_div" ng-show="comments_check">
             <i class="ionicons ion-chatbox-working non_reply_icon"></i><br>
             <h5>등록된 댓글이 없어요
@@ -14,12 +13,12 @@
 
         <ion-content delegate-handle="mainScroll" overflow-scroll="true" lazy-scroll>
             <ion-list>
-                <ion-item ng-repeat="item in cookers track by item._id" class="item item-avatar reply_item">
+                <ion-item ng-repeat="item in cookers" class="item item-avatar reply_item">
                     <img lazy-scroll-resize="true" image-lazy-src="img/unanimous.png" image-lazy-distance-from-bottom-to-load="100"
                          class="reply_item_img">
                     <div class="row reply_item_row">
                         <div class="col reply_item_nickname">
-                            {{item.cooker_id.nick_name}}
+                            {{::item.cooker_id.nick_name}}
                         </div>
                         <div class="col reply_item_time">
                             <time-directive time-data="item.date"></time-directive>
@@ -49,4 +48,4 @@
             </button>
         </ion-footer-bar>
     </div>
-</div>
+</ion-view>

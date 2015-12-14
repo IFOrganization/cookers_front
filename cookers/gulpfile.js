@@ -7,11 +7,57 @@ var minifyCss = require('gulp-minify-css');
 var rename = require('gulp-rename');
 var sh = require('shelljs');
 
+var uglify = require('gulp-uglify');
+var minifyhtml = require('gulp-minify-html');
+var templateCache = require('gulp-angular-templatecache');
+
 var paths = {
-  sass: ['./scss/**/*.scss']
+    sass: ['./scss/**/*.scss'],
+    js: [
+        './www/js/config/*.js',
+        './www/js/controllers/**/**/*.js',
+        './www/js/controllers/**/*.js',
+        './www/js/controllers/*.js',
+        './www/js/directives/*.js',
+        './www/js/services/**/**/*.js',
+        './www/js/services/**/*.js'
+    ],
+    html: [
+        './www/views/**/*.html'
+    ],
+    css:[
+        './www/css/**/**/*.css',
+        './www/css/**/*.css'
+    ]
 };
 
-gulp.task('default', ['sass']);
+gulp.task('default', [
+    'combine-js',
+    'sass',
+    'make-templatecache',
+    'minify-css'
+]);
+
+gulp.task('combine-js', function () {
+    return gulp.src(paths.js)
+
+        .pipe(concat('app.all.js'))
+        .pipe(uglify())
+        .pipe(gulp.dest('./www/final'));
+});
+
+gulp.task('make-templatecache', function () {
+    return gulp.src(paths.html)
+        .pipe(templateCache('templates.js', {
+            module:'cookers', root : './www/views'}))
+        .pipe(gulp.dest('./www/final'));
+});
+
+gulp.task('minify-css', function() {
+    return gulp.src(paths.css)
+        .pipe(minifyCss())
+        .pipe(gulp.dest('./www/final'));
+});
 
 gulp.task('sass', function(done) {
   gulp.src('./scss/ionic.app.scss')

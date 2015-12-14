@@ -1,4 +1,4 @@
-<ion-view title="Cookers">
+<ion-view title="Cookers" hide-tabs='false'>
     <ion-header-bar align-title="left" class="bar bar-subheader bar-light">
         <!--<span style="font-weight: bold; padding-top:0px; font-size:15px;">#{{tag_keyword}}</span>-->
         <h1 class="title searchresult_tag_header">
@@ -26,7 +26,7 @@
                     </div>
                 </a>
 
-                <a class="item item-thumbnail-left cookdetail_btn" ng-click="openshowrecipeModal(cook._id)">
+                <a class="item item-thumbnail-left cookdetail_btn" ng-click="gotoshowcookingTemplate(cook._id)">
                     <!--<img ng-src={{cook.comple_photo.path}}>-->
                     <img lazy-scroll-resize="true" image-lazy-src="{{cook.comple_photo.path}}" image-lazy-distance-from-bottom-to-load="100">
                     <h2>{{cook.title}}</h2>

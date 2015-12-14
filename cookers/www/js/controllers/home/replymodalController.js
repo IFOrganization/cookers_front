@@ -6,11 +6,9 @@ angular.module('cookers.controllers')
         '$scope',
         '$ionicScrollDelegate',
         '$ionicPopover',
-        '$sce',
-        '$compile',
         '$state',
-        '$rootScope',
         '$ionicPopup',
+        '$ionicHistory',
         'cookmodelManage',
         'userinfoService',
         'addreplyService',
@@ -21,11 +19,10 @@ angular.module('cookers.controllers')
         'tagkeywordService',
         'deletereplyService',
         'insertnoticeService',
-        function($scope, $ionicScrollDelegate, $ionicPopover, $sce, $compile, $state, $rootScope, $ionicPopup, cookmodelManage,
+        'getreplydataList',
+        function($scope, $ionicScrollDelegate, $ionicPopover, $state, $ionicPopup, $ionicHistory, cookmodelManage,
                  userinfoService, addreplyService, getreplyinitialdataService, searchService, focusService, getcookeridService,
-                 tagkeywordService, deletereplyService, insertnoticeService) {
-
-            focusService('reply_input');
+                 tagkeywordService, deletereplyService, insertnoticeService, getreplydataList) {
 
             $scope.myProfile = userinfoService.getuserInfo().cooker_profile;
             $scope.cook_model = cookmodelManage.get_cookmodel();
@@ -51,24 +48,13 @@ angular.module('cookers.controllers')
              * 초기 페이지 로딩시 populate를 통해 사용자 정보를 가져와야함. (nick_name cooker_photo)
              */
 
-            var initial_object = {};
-            initial_object.reply_id = $scope.cook_model.reply._id;
-            initial_object.cook_id = $scope.cook_model._id;
+            $scope.cookers = getreplydataList.cookers;
 
-            getreplyinitialdataService.initialreplydataHttpRequest(initial_object).then(function(data){
-                /**
-                 * reply 초기 요청.
-                 * 이 cook의 댓글 대이터를 가져옴.
-                 */
-
-                $scope.cookers = data.cookers; //댓글 단 사용자들
-
-                if($scope.cookers.length == 0){
-                    $scope.comments_check = true;
-                } else {
-                    $scope.comments_check = false;
-                }
-            });
+            if($scope.cookers.length == 0){
+                $scope.comments_check = true;
+            } else {
+                $scope.comments_check = false;
+            }
 
             $scope.apply_comment = function(){
 
@@ -110,7 +96,6 @@ angular.module('cookers.controllers')
 
                 beforeapply_array = beforeapply_comment.match(beforeapplyPtn);
 
-                console.log(beforeapply_array);
                 if(beforeapply_array != null){
 
                     for(var i in beforeapply_array){
@@ -141,9 +126,9 @@ angular.module('cookers.controllers')
                 }
             }
 
-            $scope.closeModal = function() {
+            /*$scope.closeModal = function() {
                 $scope.replymodal.hide();
-            };
+            };*/
 
 
             /**
@@ -358,8 +343,6 @@ angular.module('cookers.controllers')
                      * 2. $state.go 로 페이지 이동.
                      */
                     getcookeridService.getcookeridbyNicknameHttpRequest(res).then(function(data){
-                        $scope.replymodal.hide();
-                        $rootScope.$broadcast('close_showcookingmodal');
                         $state.go('tabs.user',{userid : data._id});
                     });
                 } else {
@@ -367,8 +350,7 @@ angular.module('cookers.controllers')
                      * tagkeywordService.set_tagKeyword(tag_name);
                      * $state.go('tabs.searchresult_Tag',{tag:tag_name});
                      */
-                    $scope.replymodal.hide();
-                    $rootScope.$broadcast('close_showcookingmodal');
+
                     tagkeywordService.set_tagKeyword(res);
                     $state.go('tabs.searchresult_Tag',{tag:res});
                 }
@@ -380,7 +362,6 @@ angular.module('cookers.controllers')
 
                 var replacePattern1, replacePattern2;
                 $scope.replacedText = "";
-
 
                 replacePattern1 = /(@[a-z|ㄱ-ㅎ|ㅏ-ㅣ|가-힣|0-9]*)/gi;
                 $scope.replacedText = comment.replace(replacePattern1,
@@ -403,5 +384,9 @@ angular.module('cookers.controllers')
 
 
                 return $scope.replacedText;
+            }
+
+            $scope.backtocook = function(){
+                $ionicHistory.goBack();
             }
         }]);
